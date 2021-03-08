@@ -1,8 +1,6 @@
 package com.redefantasy.proxy.command.defaults.player.friend.subcommands
 
 import com.redefantasy.core.bungee.command.CustomCommand
-import com.redefantasy.core.bungee.command.defaults.player.friend.FriendCommand
-import com.redefantasy.core.bungee.echo.packets.FriendAcceptedPacket
 import com.redefantasy.core.shared.CoreConstants
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.applications.ApplicationType
@@ -11,6 +9,8 @@ import com.redefantasy.core.shared.misc.utils.DefaultMessage
 import com.redefantasy.core.shared.users.data.User
 import com.redefantasy.core.shared.users.friends.data.FriendUser
 import com.redefantasy.core.shared.users.friends.storage.dto.CreateFriendUserDTO
+import com.redefantasy.proxy.command.defaults.player.friend.FriendCommand
+import com.redefantasy.proxy.echo.packets.FriendAcceptedPacket
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent

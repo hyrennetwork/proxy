@@ -1,11 +1,11 @@
 package com.redefantasy.proxy.command.defaults.player.friend.subcommands
 
 import com.redefantasy.core.bungee.command.CustomCommand
-import com.redefantasy.core.bungee.command.defaults.player.friend.FriendCommand
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.misc.utils.DefaultMessage
 import com.redefantasy.core.shared.users.data.User
 import com.redefantasy.core.shared.users.friends.storage.dto.DeleteFriendUserDTO
+import com.redefantasy.proxy.command.defaults.player.friend.FriendCommand
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.ClickEvent
 import net.md_5.bungee.api.chat.ComponentBuilder

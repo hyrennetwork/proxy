@@ -48,6 +48,7 @@ class MaintenanceCommand : CustomCommand("manutenção") {
         }
 
         // llllllll
+        commandSender.sendMessage(TextComponent("Não implementado"))
         return true
     }
 

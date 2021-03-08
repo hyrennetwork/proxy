@@ -1,11 +1,11 @@
 package com.redefantasy.proxy.command.defaults.player.friend.subcommands
 
 import com.redefantasy.core.bungee.command.CustomCommand
-import com.redefantasy.core.bungee.command.defaults.player.friend.FriendCommand
 import com.redefantasy.core.shared.commands.argument.Argument
 import com.redefantasy.core.shared.misc.utils.NumberUtils
 import com.redefantasy.core.shared.misc.utils.TimeCode
 import com.redefantasy.core.shared.users.data.User
+import com.redefantasy.proxy.command.defaults.player.friend.FriendCommand
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.TextComponent
 import java.util.concurrent.TimeUnit

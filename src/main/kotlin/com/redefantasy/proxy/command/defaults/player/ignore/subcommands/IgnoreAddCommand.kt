@@ -1,7 +1,6 @@
 package com.redefantasy.proxy.command.defaults.player.ignore.subcommands
 
 import com.redefantasy.core.bungee.command.CustomCommand
-import com.redefantasy.core.bungee.command.defaults.player.ignore.IgnoreCommand
 import com.redefantasy.core.shared.CoreConstants
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.commands.argument.Argument
@@ -9,6 +8,7 @@ import com.redefantasy.core.shared.misc.utils.DefaultMessage
 import com.redefantasy.core.shared.users.data.User
 import com.redefantasy.core.shared.users.ignored.data.IgnoredUser
 import com.redefantasy.core.shared.users.ignored.storage.dto.CreateIgnoredUserDTO
+import com.redefantasy.proxy.command.defaults.player.ignore.IgnoreCommand
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.TextComponent
 import org.joda.time.DateTime

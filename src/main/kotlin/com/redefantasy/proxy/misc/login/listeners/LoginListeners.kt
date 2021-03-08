@@ -1,6 +1,5 @@
 package com.redefantasy.proxy.misc.login.listeners
 
-import com.redefantasy.core.bungee.CoreBungeeConstants
 import com.redefantasy.core.shared.CoreConstants
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.users.storage.dto.UpdateUserByIdDTO
@@ -12,7 +11,6 @@ import net.md_5.bungee.api.event.PostLoginEvent
 import net.md_5.bungee.api.plugin.Listener
 import net.md_5.bungee.event.EventHandler
 import net.md_5.bungee.event.EventPriority
-import org.joda.time.DateTime
 import java.net.InetSocketAddress
 
 /**
@@ -65,7 +63,7 @@ class LoginListeners : Listener {
 
         val user = CoreProvider.Cache.Local.USERS.provide().fetchById(sender.uniqueId)
 
-        if (!CoreBungeeConstants.UNLOGGED_ALLOWED_COMMANDS.stream().anyMatch {
+        if (!CoreConstants.UN_LOGGED_ALLOWED_COMMANDS.stream().anyMatch {
                 it.contentEquals(message)
         } && (user === null || !user.isLogged())) {
             event.isCancelled = true
