@@ -1,0 +1,6 @@
+name: Proxy
+main: com.redefantasy.proxy.ProxyPlugin
+version: 0.1-ALPHA
+author: Gutyerrez
+depends:
+  - Core
