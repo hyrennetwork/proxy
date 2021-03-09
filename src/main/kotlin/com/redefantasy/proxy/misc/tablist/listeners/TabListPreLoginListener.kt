@@ -1,7 +1,7 @@
 package com.redefantasy.proxy.misc.tablist.listeners
 
 import com.redefantasy.proxy.ProxyProvider
-import net.md_5.bungee.api.event.PreLoginEvent
+import net.md_5.bungee.api.event.PostLoginEvent
 import net.md_5.bungee.api.plugin.Listener
 import net.md_5.bungee.chat.ComponentSerializer
 import net.md_5.bungee.event.EventHandler
@@ -14,9 +14,9 @@ class TabListPreLoginListener : Listener {
 
     @EventHandler
     fun on(
-        event: PreLoginEvent
+        event: PostLoginEvent
     ) {
-        val connection = event.connection
+        val player = event.player
 
         val tabList = ProxyProvider.Repositories.Postgres.TAB_LIST_REPOSITORY.provide().fetch() ?: return
 
@@ -25,7 +25,7 @@ class TabListPreLoginListener : Listener {
             ComponentSerializer.toString(tabList.footer)
         )
 
-        connection.unsafe().sendPacket(packet)
+        player.unsafe().sendPacket(packet)
     }
 
 }
