@@ -2,7 +2,6 @@ package com.redefantasy.proxy.command.defaults.staff.group.subcommands
 
 import com.google.common.base.Enums
 import com.redefantasy.core.bungee.command.CustomCommand
-import com.redefantasy.core.bungee.command.defaults.staff.group.GroupCommand
 import com.redefantasy.core.shared.CoreConstants
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.commands.argument.Argument
@@ -10,6 +9,7 @@ import com.redefantasy.core.shared.groups.Group
 import com.redefantasy.core.shared.misc.utils.DefaultMessage
 import com.redefantasy.core.shared.users.data.User
 import com.redefantasy.core.shared.users.groups.due.storage.dto.DeleteUserGroupDueDTO
+import com.redefantasy.proxy.command.defaults.staff.group.GroupCommand
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.TextComponent
 

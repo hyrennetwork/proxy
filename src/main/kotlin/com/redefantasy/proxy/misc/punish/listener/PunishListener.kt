@@ -1,6 +1,6 @@
 package com.redefantasy.proxy.misc.punish.listener
 
-import com.redefantasy.core.bungee.CoreBungeeConstants
+import com.redefantasy.core.shared.CoreConstants
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.misc.utils.TimeCode
 import net.md_5.bungee.api.chat.ComponentBuilder
@@ -48,7 +48,7 @@ class PunishListener : Listener {
 
         val currentActiveMutePunishment = user.isMuted()
 
-        if (currentActiveMutePunishment !== null && !CoreBungeeConstants.UNLOGGED_ALLOWED_COMMANDS.stream().anyMatch {
+        if (currentActiveMutePunishment !== null && !CoreConstants.UN_LOGGED_ALLOWED_COMMANDS.stream().anyMatch {
                 it.contentEquals(message)
         }) {
             val staffer = CoreProvider.Cache.Local.USERS.provide().fetchById(

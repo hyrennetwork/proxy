@@ -1,12 +1,12 @@
 package com.redefantasy.proxy.command.defaults.staff.server
 
 import com.redefantasy.core.bungee.command.CustomCommand
-import com.redefantasy.core.bungee.command.defaults.staff.server.subcommands.ServerConnectCommand
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.commands.restriction.entities.implementations.GroupCommandRestrictable
 import com.redefantasy.core.shared.groups.Group
 import com.redefantasy.core.shared.misc.utils.ChatColor
 import com.redefantasy.core.shared.users.data.User
+import com.redefantasy.proxy.command.defaults.staff.server.subcommands.ServerConnectCommand
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.ClickEvent
 import net.md_5.bungee.api.chat.ComponentBuilder

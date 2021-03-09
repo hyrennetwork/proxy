@@ -1,10 +1,10 @@
 package com.redefantasy.proxy.command.defaults.staff.group
 
 import com.redefantasy.core.bungee.command.CustomCommand
-import com.redefantasy.core.bungee.command.defaults.staff.group.subcommands.GroupAddCommand
-import com.redefantasy.core.bungee.command.defaults.staff.group.subcommands.GroupRemoveCommand
 import com.redefantasy.core.shared.commands.restriction.entities.implementations.GroupCommandRestrictable
 import com.redefantasy.core.shared.groups.Group
+import com.redefantasy.proxy.command.defaults.staff.group.subcommands.GroupAddCommand
+import com.redefantasy.proxy.command.defaults.staff.group.subcommands.GroupRemoveCommand
 
 /**
  * @author Gutyerrez

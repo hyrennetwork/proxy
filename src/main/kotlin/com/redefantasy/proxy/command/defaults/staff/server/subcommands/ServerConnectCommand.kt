@@ -1,11 +1,11 @@
 package com.redefantasy.proxy.command.defaults.staff.server.subcommands
 
 import com.redefantasy.core.bungee.command.CustomCommand
-import com.redefantasy.core.bungee.command.defaults.staff.server.ServerCommand
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.applications.ApplicationType
 import com.redefantasy.core.shared.commands.argument.Argument
 import com.redefantasy.core.shared.users.data.User
+import com.redefantasy.proxy.command.defaults.staff.server.ServerCommand
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.TextComponent
 import net.md_5.bungee.api.connection.ProxiedPlayer

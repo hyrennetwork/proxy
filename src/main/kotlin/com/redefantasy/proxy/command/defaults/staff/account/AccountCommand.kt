@@ -1,10 +1,10 @@
 package com.redefantasy.proxy.command.defaults.staff.account
 
 import com.redefantasy.core.bungee.command.CustomCommand
-import com.redefantasy.core.bungee.command.defaults.staff.account.subcommands.AccountChangeCommand
 import com.redefantasy.core.shared.commands.restriction.CommandRestriction
 import com.redefantasy.core.shared.commands.restriction.entities.implementations.GroupCommandRestrictable
 import com.redefantasy.core.shared.groups.Group
+import com.redefantasy.proxy.command.defaults.staff.account.subcommands.AccountChangeCommand
 
 /**
  * @author Gutyerrez
