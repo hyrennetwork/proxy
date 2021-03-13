@@ -43,7 +43,7 @@ class IgnoreRemoveCommand : CustomCommand("remover") {
             return false
         }
 
-        CoreProvider.Repositories.Mongo.USERS_IGNORED_REPOSITORY.provide().delete(
+        CoreProvider.Repositories.Postgres.IGNORED_USERS_REPOSITORY.provide().delete(
             DeleteIgnoredUserDTO(
                 user.id,
                 ignoredUser.id

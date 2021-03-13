@@ -51,7 +51,7 @@ class FriendAcceptCommand : CustomCommand("aceitar") {
             return false
         }
 
-        CoreProvider.Repositories.Mongo.USERS_FRIENDS_REPOSITORY.provide().create(
+        CoreProvider.Repositories.Postgres.USERS_FRIENDS_REPOSITORY.provide().create(
             CreateFriendUserDTO(
                 FriendUser(
                     user!!.id,
