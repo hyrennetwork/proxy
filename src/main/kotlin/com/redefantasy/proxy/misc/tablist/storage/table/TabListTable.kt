@@ -15,10 +15,10 @@ object TabListTable : Table("tab_list") {
 
     fun ResultRow.asTabList() = TabList(
         TextComponent.fromLegacyText(
-            this[header]
+            this[header].replace("\\n", "\n")
         ),
         TextComponent.fromLegacyText(
-            this[footer]
+            this[footer].replace("\\n", "\n")
         )
     )
 
