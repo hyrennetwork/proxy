@@ -27,6 +27,8 @@ class StaffListCommand : CustomCommand("staff"), GroupCommandRestrictable {
         user: User?,
         args: Array<out String>
     ): Boolean {
+        println(CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsers())
+
         val users = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsers()
             .stream()
             .map {
