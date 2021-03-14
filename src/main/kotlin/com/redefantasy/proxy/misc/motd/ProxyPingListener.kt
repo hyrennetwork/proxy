@@ -1,13 +1,11 @@
 package com.redefantasy.proxy.misc.motd
 
-import com.redefantasy.core.shared.CoreConstants
 import net.md_5.bungee.api.Favicon
 import net.md_5.bungee.api.ProxyServer
 import net.md_5.bungee.api.ServerPing
 import net.md_5.bungee.api.chat.TextComponent
 import net.md_5.bungee.api.event.ProxyPingEvent
 import net.md_5.bungee.api.plugin.Listener
-import net.md_5.bungee.protocol.packet.StatusResponse
 import java.net.URL
 import javax.imageio.ImageIO
 
@@ -34,11 +32,7 @@ class ProxyPingListener : Listener {
             Favicon.create(image)
         )
 
-        connection.unsafe().sendPacket(
-            StatusResponse(
-                CoreConstants.GSON.toJson(serverPing)
-            )
-        )
+        event.response = serverPing
     }
 
 }
