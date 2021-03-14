@@ -16,7 +16,6 @@ import com.redefantasy.proxy.echo.packets.listeners.DisconnectUserEchoPacketList
 import com.redefantasy.proxy.echo.packets.listeners.StaffMessageEchoPacketListener
 import com.redefantasy.proxy.echo.packets.listeners.TellEchoPacketListener
 import com.redefantasy.proxy.misc.login.listeners.LoginListeners
-import com.redefantasy.proxy.misc.motd.ProxyPingListener
 import com.redefantasy.proxy.misc.punish.command.CheckPunishCommand
 import com.redefantasy.proxy.misc.punish.command.PunishCommand
 import com.redefantasy.proxy.misc.punish.command.RevokeCommand
@@ -61,7 +60,6 @@ class ProxyPlugin : CustomPlugin() {
         pluginManager.registerListener(this, PunishListener())
         pluginManager.registerListener(this, LoginListeners())
         pluginManager.registerListener(this, TabListPreLoginListener())
-        pluginManager.registerListener(this, ProxyPingListener())
 
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(TellEchoPacketListener())
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(StaffMessageEchoPacketListener())
