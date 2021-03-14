@@ -49,7 +49,7 @@ class StaffListCommand : CustomCommand("staff"), GroupCommandRestrictable {
             .forEach {
                 val highestGroup = it!!.getHighestGroup()
                 val prefix = "${ChatColor.fromHEX(highestGroup.color!!)}${highestGroup.prefix}"
-                val bukkitApplication = it.getConnectedBukkitApplication()
+                val bukkitApplication = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchBukkitApplication(it)
 
                 message.append(
                     "§f - $prefix${it.name} §7(${if (bukkitApplication === null) "Desconhecido" else bukkitApplication.displayName})"
