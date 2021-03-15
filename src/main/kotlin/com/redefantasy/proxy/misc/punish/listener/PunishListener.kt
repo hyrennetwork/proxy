@@ -9,6 +9,8 @@ import net.md_5.bungee.api.event.ChatEvent
 import net.md_5.bungee.api.event.PreLoginEvent
 import net.md_5.bungee.api.plugin.Listener
 import net.md_5.bungee.event.EventHandler
+import java.util.*
+import java.util.function.Supplier
 
 /**
  * @author Gutyerrez
@@ -54,18 +56,27 @@ class PunishListener : Listener {
             val staffer = CoreProvider.Cache.Local.USERS.provide().fetchById(
                 currentActiveMutePunishment.stafferId
             )
-            event.isCancelled = true
+            val supplier = Supplier<Boolean> {
+                if ((event.isCommand && arrayOf("/g", "/tell").contains(message)) || !event.isCommand) {
+                    return@Supplier true
+                }
+                return@Supplier false
+            }
 
-            proxiedPlayer.sendMessage(
-                *ComponentBuilder("\n")
-                    .append("§c * Você foi ${currentActiveMutePunishment.punishType.sampleName} por ${staffer?.name}.")
-                    .append("\n")
-                    .append("§c * Motivo: ${currentActiveMutePunishment.punishCategory?.displayName}")
-                    .append("\n")
-                    .append("§c * Duração: ${TimeCode.toText(currentActiveMutePunishment.duration, 1)}")
-                    .append("\n")
-                    .create()
-            )
+            if (supplier.get()) {
+                event.isCancelled = true
+
+                proxiedPlayer.sendMessage(
+                    *ComponentBuilder("\n")
+                        .append("§c * Você foi ${currentActiveMutePunishment.punishType.sampleName} por ${staffer?.name}.")
+                        .append("\n")
+                        .append("§c * Motivo: ${currentActiveMutePunishment.punishCategory?.displayName}")
+                        .append("\n")
+                        .append("§c * Duração: ${TimeCode.toText(currentActiveMutePunishment.duration, 1)}")
+                        .append("\n")
+                        .create()
+                )
+            }
         }
     }
 
