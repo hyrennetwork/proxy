@@ -34,8 +34,7 @@ class StaffMessageEchoPacketListener : EchoListener {
                 .append("§d§l[S] ")
                 .append("§7(${bukkitApplication?.server?.displayName ?: bukkitApplication?.getFancyDisplayName()}) ")
                 .append("${group.getColoredPrefix()}${user.name}")
-                .append(": ")
-                .append("§d${packet.message}")
+                .append("§d: ${packet.message}")
                 .create()
 
         staffers.forEach { it.sendMessage(*message) }
