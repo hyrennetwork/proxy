@@ -21,8 +21,7 @@ class OnlineCommand : CustomCommand("online") {
 
         val message = ComponentBuilder()
             .append("\n")
-            .append("§b§l * ")
-            .append("§r§e${users.size} jogadores online na rede.")
+            .append("§eTotal de jogadores on-line em toda rede: §f${users.size}")
             .append("\n")
 
         if (commandSender is ProxiedPlayer) {
@@ -32,8 +31,7 @@ class OnlineCommand : CustomCommand("online") {
             if (server !== null) {
                 val usersByServer = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByServer(server)
 
-                message.append("§b§l * ")
-                    .append("§r§e${usersByServer.size} jogadores no servidor atual.")
+                message.append("§eTotal de jogadores on-line neste servidor: §f${usersByServer.size}")
                     .append("\n")
             }
         }
