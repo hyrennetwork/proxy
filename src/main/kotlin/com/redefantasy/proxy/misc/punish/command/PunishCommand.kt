@@ -67,7 +67,7 @@ class PunishCommand : CustomCommand("punir"), GroupCommandRestrictable {
 
                 var color = ChatColor.WHITE
 
-                punishCategories.forEach {
+                punishCategories.forEachIndexed { index, it ->
                     val _componentBuilder = ComponentBuilder("§e${it.displayName}")
                         .append("\n\n")
                         .append("§f${it.getDescription()}")
@@ -85,8 +85,7 @@ class PunishCommand : CustomCommand("punir"), GroupCommandRestrictable {
                         if (index + 1 < it.punishDurations.size) _componentBuilder.append("\n")
                     }
 
-                    componentBuilder.append("$color - ")
-                        .append(it.displayName)
+                    componentBuilder.append("$color - ${it.displayName}")
                         .event(
                             HoverEvent(
                                 HoverEvent.Action.SHOW_TEXT,
@@ -99,6 +98,8 @@ class PunishCommand : CustomCommand("punir"), GroupCommandRestrictable {
                                 "/punir ${args[0]} ${it.name} "
                             )
                         )
+
+                    if (index + 1 < punishCategories.size) componentBuilder.append("\n")
 
                     if (color === ChatColor.WHITE) color = ChatColor.GRAY else color = ChatColor.WHITE
                 }
