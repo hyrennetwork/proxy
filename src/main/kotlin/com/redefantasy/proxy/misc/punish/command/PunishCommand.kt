@@ -164,11 +164,11 @@ class PunishCommand : CustomCommand("punir"), GroupCommandRestrictable {
                 )
 
                 val message = ComponentBuilder("\n")
-                    .append("§c * ${targetUser.name} foi ${punishDuration.punishType.sampleName} por ${user.name}.")
+                    .append("§c (!) ${targetUser.name} foi ${punishDuration.punishType.displayName} por ${user.name}.")
                     .append("\n")
-                    .append("§c * Motivo: ${punishCategory.displayName}")
+                    .append("§c (!) Motivo: ${punishCategory.displayName}")
                     .append("\n")
-                    .append("§c * Duração: ${TimeCode.toText(punishDuration.duration, 1)}")
+                    .append("§c (!) Duração: ${TimeCode.toText(punishDuration.duration, 1)}")
                     .append("\n")
                     .create()
 

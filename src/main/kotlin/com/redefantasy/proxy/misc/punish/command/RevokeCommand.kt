@@ -1,7 +1,6 @@
 package com.redefantasy.proxy.misc.punish.command
 
 import com.redefantasy.core.bungee.command.CustomCommand
-import com.redefantasy.proxy.misc.punish.packets.UserUnPunishedPacket
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.applications.ApplicationType
 import com.redefantasy.core.shared.commands.argument.Argument
@@ -13,6 +12,7 @@ import com.redefantasy.core.shared.misc.utils.NumberUtils
 import com.redefantasy.core.shared.users.data.User
 import com.redefantasy.core.shared.users.punishments.storage.dto.UpdateUserPunishmentByIdDTO
 import com.redefantasy.core.shared.users.punishments.storage.table.UsersPunishmentsTable
+import com.redefantasy.proxy.misc.punish.packets.UserUnPunishedPacket
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.ClickEvent
 import net.md_5.bungee.api.chat.ComponentBuilder
@@ -136,11 +136,11 @@ class RevokeCommand : CustomCommand("despunir"), GroupCommandRestrictable {
 
                 val message = ComponentBuilder()
                     .append("\n")
-                    .append("§e * ${user!!.name} revogou uma punição de ${punishedUser!!.name}.")
+                    .append("§e (!) ${user!!.name} revogou uma punição de ${punishedUser!!.name}.")
                     .append("\n")
-                    .append("§e * Aplicada inicialmente por ${punisherUser!!.name}.")
+                    .append("§e (!) Aplicada inicialmente por ${punisherUser!!.name}.")
                     .append("\n")
-                    .append("§e * Motivo: ${revokeCategory.displayName}.")
+                    .append("§e (!) Motivo: ${revokeCategory.displayName}.")
                     .append("\n")
                     .create()
 
