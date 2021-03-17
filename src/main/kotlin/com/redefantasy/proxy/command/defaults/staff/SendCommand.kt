@@ -20,7 +20,7 @@ class SendCommand : CustomCommand("send"), GroupCommandRestrictable {
 
     override fun getCommandRestriction() = CommandRestriction.CONSOLE_AND_GAME
 
-    override fun getDescription0() = "Enviar um usuário para um servidor específico."
+    override fun getDescription() = "Enviar um usuário para um servidor específico."
 
     override fun getArguments() = listOf(
         Argument("usuário"),
