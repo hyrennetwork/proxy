@@ -1,8 +1,8 @@
 package com.redefantasy.proxy.echo.packets.listeners
 
-import com.redefantasy.proxy.echo.packets.TellPacket
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.echo.api.listener.EchoListener
+import com.redefantasy.proxy.echo.packets.TellPacket
 import net.md_5.bungee.api.ProxyServer
 import net.md_5.bungee.api.chat.ComponentBuilder
 import org.greenrobot.eventbus.Subscribe
@@ -24,13 +24,13 @@ class TellEchoPacketListener : EchoListener {
         val receiver = CoreProvider.Cache.Local.USERS.provide().fetchById(receiverId!!)!!
 
         val toMessage = ComponentBuilder()
-                .append("§8[Para ${receiver.getHighestGroup().getColoredPrefix()}${receiver.name}§8]: §6")
-                .append(message)
+                .append("§8[Para ${receiver.getHighestGroup().getColoredPrefix()}${receiver.name}§8]: ")
+                .append("§6$message")
                 .create()
 
         val fromMessage = ComponentBuilder()
-                .append("§8[De ${sender.getHighestGroup().getColoredPrefix()}${sender.name}§8]: §6")
-                .append(message)
+                .append("§8[De ${sender.getHighestGroup().getColoredPrefix()}${sender.name}§8]: ")
+            .append("§6$message")
                 .create()
 
         val senderPlayer = ProxyServer.getInstance().getPlayer(sender.getUniqueId())
