@@ -60,7 +60,7 @@ class SendCommand : CustomCommand("send"), GroupCommandRestrictable {
         CoreProvider.Databases.Redis.ECHO.provide().publishToApplications(
             packet,
             CoreProvider.Cache.Local.APPLICATIONS.provide().fetchByApplicationType(
-                ApplicationType.LOBBY
+                ApplicationType.PROXY
             )
         )
 
