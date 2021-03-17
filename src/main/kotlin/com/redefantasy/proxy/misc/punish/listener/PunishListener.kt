@@ -56,6 +56,8 @@ class PunishListener : Listener {
             val staffer = CoreProvider.Cache.Local.USERS.provide().fetchById(
                 currentActiveMutePunishment.stafferId
             )
+
+            val proof = currentActiveMutePunishment.proof
             val supplier = Supplier<Boolean> {
                 if ((event.isCommand && arrayOf("/g", "/tell").contains(message)) || !event.isCommand) {
                     return@Supplier true
@@ -70,7 +72,7 @@ class PunishListener : Listener {
                     *ComponentBuilder("\n")
                         .append("§c * Você foi ${currentActiveMutePunishment.punishType.sampleName} por ${staffer?.name}.")
                         .append("\n")
-                        .append("§c * Motivo: ${currentActiveMutePunishment.punishCategory?.displayName}")
+                        .append("§c * Motivo: ${currentActiveMutePunishment.punishCategory?.displayName}${if (proof !== null) " - $proof" else ""}")
                         .append("\n")
                         .append("§c * Duração: ${TimeCode.toText(currentActiveMutePunishment.duration, 1)}")
                         .append("\n")

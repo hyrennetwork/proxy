@@ -166,7 +166,7 @@ class PunishCommand : CustomCommand("punir"), GroupCommandRestrictable {
                 val message = ComponentBuilder("\n")
                     .append("§c (!) ${targetUser.name} foi ${punishDuration.punishType.displayName} por ${user.name}.")
                     .append("\n")
-                    .append("§c (!) Motivo: ${punishCategory.displayName}")
+                    .append("§c (!) Motivo: ${punishCategory.displayName} ${if (proof !== null) " - $proof" else ""}")
                     .append("\n")
                     .append("§c (!) Duração: ${TimeCode.toText(punishDuration.duration, 1)}")
                     .append("\n")
