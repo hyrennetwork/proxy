@@ -126,10 +126,6 @@ class PunishCommand : CustomCommand("punir"), GroupCommandRestrictable {
                 val customReason = if (args.size >= 4) args[3] else null
                 val hidden = if (args.size >= 5) args[4].toLowerCase() === "-h" else false
 
-                println(proof)
-
-                if (proof !== null) println("Pattern: ${Patterns.URL.matches(proof)}")
-
                 if ((proof === null || !Patterns.URL.matches(proof)) && !user.hasGroup(Group.MANAGER)) {
                     commandSender.sendMessage(TextComponent("§cA prova inserida está inválida."))
                     return true
@@ -170,7 +166,7 @@ class PunishCommand : CustomCommand("punir"), GroupCommandRestrictable {
                 val message = ComponentBuilder("\n")
                     .append("§c (!) ${targetUser.name} foi ${punishDuration.punishType.displayName} por ${user.name}.")
                     .append("\n")
-                    .append("§c (!) Motivo: ${punishCategory.displayName} ${if (proof !== null) " - $proof" else ""}")
+                    .append("§c (!) Motivo: ${punishCategory.displayName}${if (proof !== null && proof.isNotEmpty()) " - $proof" else ""}")
                     .append("\n")
                     .append("§c (!) Duração: ${TimeCode.toText(punishDuration.duration, 1)}")
                     .append("\n")

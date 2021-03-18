@@ -56,7 +56,7 @@ class RevokeCommand : CustomCommand("despunir"), GroupCommandRestrictable {
             return false
         }
 
-        if (!userPunishment.isActive() || userPunishment.startTime !== null) {
+        if (!userPunishment.isActive() || userPunishment.revokeTime !== null) {
             commandSender.sendMessage(TextComponent("§cEsta punição não está mais ativa."))
             return false
         }
