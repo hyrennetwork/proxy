@@ -6,7 +6,6 @@ import com.redefantasy.proxy.command.defaults.player.LobbyCommand
 import com.redefantasy.proxy.command.defaults.player.OnlineCommand
 import com.redefantasy.proxy.command.defaults.player.ReplyCommand
 import com.redefantasy.proxy.command.defaults.player.TellCommand
-import com.redefantasy.proxy.command.defaults.player.ignore.IgnoreCommand
 import com.redefantasy.proxy.command.defaults.staff.*
 import com.redefantasy.proxy.command.defaults.staff.account.AccountCommand
 import com.redefantasy.proxy.command.defaults.staff.group.GroupCommand
@@ -51,7 +50,6 @@ class ProxyPlugin : CustomPlugin() {
         pluginManager.registerCommand(this, OnlineCommand())
         pluginManager.registerCommand(this, ReplyCommand())
         pluginManager.registerCommand(this, TellCommand())
-        pluginManager.registerCommand(this, IgnoreCommand())
 
         pluginManager.registerCommand(this, PunishCommand())
         pluginManager.registerCommand(this, RevokeCommand())

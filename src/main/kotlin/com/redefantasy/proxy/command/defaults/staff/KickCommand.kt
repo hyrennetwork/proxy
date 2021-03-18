@@ -9,6 +9,7 @@ import com.redefantasy.core.shared.groups.Group
 import com.redefantasy.core.shared.misc.utils.DefaultMessage
 import com.redefantasy.core.shared.users.data.User
 import net.md_5.bungee.api.CommandSender
+import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
 
 /**
@@ -26,7 +27,7 @@ class KickCommand : CustomCommand("kick"), GroupCommandRestrictable {
 
     override fun getAliases() = arrayOf("chutar")
 
-    override fun getGroup() = Group.ADMINISTRATOR
+    override fun getGroup() = Group.MODERATOR
 
     override fun onCommand(
         commandSender: CommandSender,
@@ -45,7 +46,7 @@ class KickCommand : CustomCommand("kick"), GroupCommandRestrictable {
             return false
         }
 
-        if (user === targetUser) {
+        if (user == targetUser) {
             commandSender.sendMessage(TextComponent("§cVocê não pode expulsar a si mesmo."))
             return false
         }
@@ -53,7 +54,13 @@ class KickCommand : CustomCommand("kick"), GroupCommandRestrictable {
         val message = args.copyOfRange(1, args.size).joinToString(" ")
 
         targetUser.disconnect(
-            TextComponent(message)
+            ComponentBuilder()
+                .append("§c§lREDE FANTASY")
+                .append("\n\n")
+                .append("§cVocê foi chutado por: ${user?.name}")
+                .append("\n")
+                .append("Motivo: $${if (message.isEmpty()) "Nenhum motivo informado" else message}")
+                .create()
         )
 
         commandSender.sendMessage(TextComponent("§eVocê chutou ${targetUser.name} para fora do servidor por: ${if (message.isEmpty()) "Nenhum motivo informado" else message}."))

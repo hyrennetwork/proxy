@@ -126,6 +126,10 @@ class PunishCommand : CustomCommand("punir"), GroupCommandRestrictable {
                 val customReason = if (args.size >= 4) args[3] else null
                 val hidden = if (args.size >= 5) args[4].toLowerCase() === "-h" else false
 
+                println(proof)
+
+                if (proof !== null) println("Pattern: ${Patterns.URL.matches(proof)}")
+
                 if ((proof === null || !Patterns.URL.matches(proof)) && !user.hasGroup(Group.MANAGER)) {
                     commandSender.sendMessage(TextComponent("§cA prova inserida está inválida."))
                     return true
