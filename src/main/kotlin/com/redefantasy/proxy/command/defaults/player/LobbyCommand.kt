@@ -1,9 +1,8 @@
 package com.redefantasy.proxy.command.defaults.player
 
 import com.redefantasy.core.bungee.command.CustomCommand
-import com.redefantasy.core.shared.CoreProvider
+import com.redefantasy.core.shared.CoreConstants
 import com.redefantasy.core.shared.applications.ApplicationType
-import com.redefantasy.core.shared.applications.status.ApplicationStatus
 import com.redefantasy.core.shared.users.data.User
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.TextComponent
@@ -21,33 +20,16 @@ class LobbyCommand : CustomCommand("lobby") {
             user: User?,
             args: Array<out String>
     ): Boolean {
-        val bukkitApplication = user?.getConnectedBukkitApplication()
+        var bukkitApplication = user?.getConnectedBukkitApplication()
 
         if (bukkitApplication !== null && bukkitApplication.applicationType === ApplicationType.LOBBY) {
             commandSender.sendMessage(TextComponent("§cVocê já está no saguão."))
             return false
         }
 
-        val applications = CoreProvider.Cache.Local.APPLICATIONS.provide().fetchByApplicationType(ApplicationType.LOBBY)
+        bukkitApplication = CoreConstants.fetchLobbyApplication()
 
-        val liveApplication = applications.stream().sorted { application1, application2 ->
-            val applicationStatus1 = CoreProvider.Cache.Redis.APPLICATIONS_STATUS.provide().fetchApplicationStatusByApplication(
-                application1,
-                ApplicationStatus::class
-            )
-            val applicationStatus2 = CoreProvider.Cache.Redis.APPLICATIONS_STATUS.provide().fetchApplicationStatusByApplication(
-                application2,
-                ApplicationStatus::class
-            )
-
-            if (applicationStatus1 === null || applicationStatus2 === null) return@sorted 0
-
-            if (applicationStatus1.onlinePlayers >= application1.slots ?: 0 || applicationStatus2.onlinePlayers >= application2.slots ?: 0) return@sorted 0
-
-            applicationStatus2.onlinePlayers.compareTo(applicationStatus1.onlinePlayers)
-        }.findFirst().orElse(null)
-
-        if (liveApplication === null) {
+        if (bukkitApplication === null) {
             commandSender.sendMessage(TextComponent("§cNão foi possível localizar um saguão disponível."))
             return false
         }
@@ -55,7 +37,7 @@ class LobbyCommand : CustomCommand("lobby") {
         commandSender as ProxiedPlayer
 
         commandSender.sendMessage(TextComponent("§aConectando..."))
-        commandSender.connect { liveApplication.address }
+        commandSender.connect { bukkitApplication.address }
         return true
     }
 
