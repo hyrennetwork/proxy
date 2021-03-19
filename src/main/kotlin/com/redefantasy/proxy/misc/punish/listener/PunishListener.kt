@@ -59,8 +59,6 @@ class PunishListener : Listener {
 
             val proof = currentActiveMutePunishment.proof
             val supplier = Supplier<Boolean> {
-                println("Comando: $message")
-
                 if ((event.isCommand && arrayOf("/g", "/tell").contains(message.trim().toLowerCase())) || !event.isCommand) {
                     return@Supplier true
                 }
