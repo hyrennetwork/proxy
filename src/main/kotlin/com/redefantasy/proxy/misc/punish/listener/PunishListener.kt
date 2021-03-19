@@ -61,7 +61,7 @@ class PunishListener : Listener {
             val supplier = Supplier<Boolean> {
                 println("Comando: $message")
 
-                if ((event.isCommand && arrayOf("/g", "/tell").contains(message)) || !event.isCommand) {
+                if ((event.isCommand && arrayOf("/g", "/tell").contains(message.trim().toLowerCase())) || !event.isCommand) {
                     return@Supplier true
                 }
 
