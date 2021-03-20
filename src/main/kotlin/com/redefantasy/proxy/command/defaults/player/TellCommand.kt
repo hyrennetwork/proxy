@@ -30,6 +30,8 @@ class TellCommand : CustomCommand("tell") {
             user: User?,
             args: Array<out String>
     ): Boolean {
+        if (user === null) return false
+
         val targetUser = CoreProvider.Cache.Local.USERS.provide().fetchByName(args[0])
 
         if (targetUser === null) {
@@ -52,9 +54,17 @@ class TellCommand : CustomCommand("tell") {
             return false
         }
 
-        user!!.directMessage = targetUser
-
         val message = args.copyOfRange(1, args.size).joinToString(" ")
+
+        if (user.lastSentMessage !== null && user.lastSentMessage!!.toLowerCase().contains(message.toLowerCase())) {
+            commandSender.sendMessage(
+                TextComponent("§cVocê não pode enviar uma mensagem tão similar a anterior.")
+            )
+            return false
+        }
+
+        user.directMessage = targetUser
+        user.lastSentMessage = message
 
         val packet = TellPacket()
 
