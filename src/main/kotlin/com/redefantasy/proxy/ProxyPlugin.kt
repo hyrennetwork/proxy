@@ -118,7 +118,7 @@ class ProxyPlugin : CustomPlugin() {
                     )) {
                         println(motd.toLegacyText())
 
-                        val firstLine = motd.toLegacyText().split("\\\n")[0]
+                        val firstLine = motd.toLegacyText().split("\n")[0]
 
                         println("First Line: $firstLine")
 
