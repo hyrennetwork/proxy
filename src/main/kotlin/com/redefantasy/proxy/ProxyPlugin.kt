@@ -2,6 +2,7 @@ package com.redefantasy.proxy
 
 import com.redefantasy.core.bungee.misc.plugin.CustomPlugin
 import com.redefantasy.core.shared.CoreProvider
+import com.redefantasy.core.shared.applications.status.ApplicationStatus
 import com.redefantasy.proxy.command.defaults.player.LobbyCommand
 import com.redefantasy.proxy.command.defaults.player.OnlineCommand
 import com.redefantasy.proxy.command.defaults.player.ReplyCommand
@@ -23,9 +24,7 @@ import com.redefantasy.proxy.misc.punish.listener.PunishListener
 import com.redefantasy.proxy.misc.punish.packets.listeners.UserPunishedEchoPacketListener
 import com.redefantasy.proxy.misc.punish.packets.listeners.UserUnPunishedEchoPacketListener
 import com.redefantasy.proxy.misc.tablist.listeners.TabListPreLoginListener
-import net.md_5.bungee.BungeeCord
 import net.md_5.bungee.api.ProxyServer
-import net.md_5.bungee.api.ServerPing
 import net.md_5.bungee.api.chat.TextComponent
 import net.md_5.bungee.api.event.ProxyPingEvent
 import net.md_5.bungee.api.plugin.Listener
@@ -92,21 +91,29 @@ class ProxyPlugin : CustomPlugin() {
                 ) {
                     println("ping")
 
-                    val serverPing = ServerPing(
-                        ServerPing.Protocol(
-                            "",
-                            BungeeCord.getInstance().protocolVersion
-                        ),
-                        ServerPing.Players(
-                            600,
-                            CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsers().size,
-                            event.response.players.sample
-                        ),
-                        TextComponent("§7Testando 1, 2, 3..."),
-                        event.response.faviconObject
+                    event.response.players.max = 600
+                    event.response.players.online = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsers().size
+
+                    val applicationStatus = CoreProvider.Cache.Redis.APPLICATIONS_STATUS.provide().fetchApplicationStatusByApplication(
+                        CoreProvider.application,
+                        ApplicationStatus::class
                     )
 
-                    event.response = serverPing
+                    val motd = ProxyProvider.Repositories.Postgres.MOTD_REPOSITORY.provide().fetch()
+
+                    if (applicationStatus !== null && applicationStatus.maintenance) {
+                        val firstLine = motd.text.split("\\n")[0]
+
+                        event.response.descriptionComponent = TextComponent(
+                            String.format(
+                                "%s\n%s",
+                                firstLine,
+                                "§cO servidor atualmente encontra-se em manutenção."
+                            )
+                        )
+                    } else {
+                        event.response.descriptionComponent = motd
+                    }
 
                     event.postCall()
                 }
