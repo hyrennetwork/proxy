@@ -10,7 +10,7 @@ import net.md_5.bungee.protocol.packet.PlayerListHeaderFooter
 /**
  * @author Gutyerrez
  */
-class TabListPreLoginListener : Listener {
+class TabListPostLoginListener : Listener {
 
     @EventHandler
     fun on(

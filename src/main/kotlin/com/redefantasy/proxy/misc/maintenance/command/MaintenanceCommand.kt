@@ -5,7 +5,6 @@ import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.commands.argument.Argument
 import com.redefantasy.core.shared.commands.restriction.entities.implementations.GroupCommandRestrictable
 import com.redefantasy.core.shared.groups.Group
-import com.redefantasy.core.shared.servers.status.ServerStatus
 import com.redefantasy.core.shared.users.data.User
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.TextComponent
@@ -34,30 +33,20 @@ class MaintenanceCommand : CustomCommand("manutenção"), GroupCommandRestrictab
             return false
         }
 
+        val currentState = CoreProvider.Repositories.Postgres.MAINTENANCE_REPOSITORY.provide().fetchByApplication(application)
         val newState = args[1].toBoolean()
 
-        val applicationStatus = CoreProvider.Cache.Redis.APPLICATIONS_STATUS.provide().fetchApplicationStatusByApplication(
+        if (currentState == newState) {
+            commandSender.sendMessage(
+                TextComponent("§cA aplicação ${application.name} já está com o modo manutenção ${if (newState) "ativado" else "desativado"}.")
+            )
+            return false
+        }
+
+        CoreProvider.Repositories.Postgres.MAINTENANCE_REPOSITORY.provide().update(
             application,
-            ServerStatus::class
+            newState
         )
-
-        if (applicationStatus === null) {
-            commandSender.sendMessage(
-                TextComponent("§cNão foi possível localizar o status dessa aplicação.")
-            )
-            return false
-        }
-
-        if (applicationStatus.maintenance == newState) {
-            commandSender.sendMessage(
-                TextComponent("§cA aplicação ${applicationStatus.applicationName} já está com o modo manutenção ${if (newState) "ativado" else "desativado"}.")
-            )
-            return false
-        }
-
-        applicationStatus.maintenance = newState
-
-        CoreProvider.Cache.Redis.APPLICATIONS_STATUS.provide().update(applicationStatus)
 
         commandSender.sendMessage(
             TextComponent(

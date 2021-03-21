@@ -17,6 +17,7 @@ import com.redefantasy.proxy.echo.packets.listeners.BroadCastMessageEchoPacketLi
 import com.redefantasy.proxy.echo.packets.listeners.DisconnectUserEchoPacketListener
 import com.redefantasy.proxy.echo.packets.listeners.StaffMessageEchoPacketListener
 import com.redefantasy.proxy.echo.packets.listeners.TellEchoPacketListener
+import com.redefantasy.proxy.listeners.connection.PreLoginListener
 import com.redefantasy.proxy.misc.login.listeners.LoginListeners
 import com.redefantasy.proxy.misc.maintenance.command.MaintenanceCommand
 import com.redefantasy.proxy.misc.punish.command.CheckPunishCommand
@@ -25,7 +26,7 @@ import com.redefantasy.proxy.misc.punish.command.RevokeCommand
 import com.redefantasy.proxy.misc.punish.listener.PunishListener
 import com.redefantasy.proxy.misc.punish.packets.listeners.UserPunishedEchoPacketListener
 import com.redefantasy.proxy.misc.punish.packets.listeners.UserUnPunishedEchoPacketListener
-import com.redefantasy.proxy.misc.tablist.listeners.TabListPreLoginListener
+import com.redefantasy.proxy.misc.tablist.listeners.TabListPostLoginListener
 import net.md_5.bungee.api.ProxyServer
 import net.md_5.bungee.api.chat.TextComponent
 import net.md_5.bungee.api.event.ProxyPingEvent
@@ -86,9 +87,10 @@ class ProxyPlugin : CustomPlugin() {
          * Listeners
          */
 
-        pluginManager.registerListener(this, PunishListener())
-        pluginManager.registerListener(this, LoginListeners())
-        pluginManager.registerListener(this, TabListPreLoginListener())
+        pluginManager.registerListener(PunishListener())
+        pluginManager.registerListener(LoginListeners())
+        pluginManager.registerListener(PreLoginListener())
+        pluginManager.registerListener(TabListPostLoginListener())
 
         pluginManager.registerListener(
             object : Listener {
@@ -111,7 +113,9 @@ class ProxyPlugin : CustomPlugin() {
 
                     val motd = ProxyProvider.Repositories.Postgres.MOTD_REPOSITORY.provide().fetch()
 
-                    if (applicationStatus !== null && applicationStatus.maintenance) {
+                    if (applicationStatus !== null && CoreProvider.Repositories.Postgres.MAINTENANCE_REPOSITORY.provide().fetchByApplication(
+                            CoreProvider.application
+                    )) {
                         val firstLine = motd.text.split("\\n")[0]
 
                         event.response.descriptionComponent = TextComponent(
@@ -124,8 +128,6 @@ class ProxyPlugin : CustomPlugin() {
                     } else {
                         event.response.descriptionComponent = motd
                     }
-
-//                    event.postCall()
                 }
             }
         )
