@@ -116,11 +116,7 @@ class ProxyPlugin : CustomPlugin() {
                     if (applicationStatus !== null && CoreProvider.Repositories.Postgres.MAINTENANCE_REPOSITORY.provide().fetchByApplication(
                             CoreProvider.application
                     )) {
-                        println(motd.toLegacyText())
-
                         val firstLine = motd.toLegacyText().split("\n")[0]
-
-                        println("First Line: $firstLine")
 
                         event.response.descriptionComponent = TextComponent(
                             String.format(
