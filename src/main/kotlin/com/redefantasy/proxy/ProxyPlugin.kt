@@ -94,6 +94,9 @@ class ProxyPlugin : CustomPlugin() {
                     event.response.players.max = 600
                     event.response.players.online = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsers().size
 
+                    event.response.version.name = "Fantasy Proxy"
+                    event.response.version.protocol = 3
+
                     val applicationStatus = CoreProvider.Cache.Redis.APPLICATIONS_STATUS.provide().fetchApplicationStatusByApplication(
                         CoreProvider.application,
                         ApplicationStatus::class
@@ -115,7 +118,7 @@ class ProxyPlugin : CustomPlugin() {
                         event.response.descriptionComponent = motd
                     }
 
-                    event.postCall()
+//                    event.postCall()
                 }
             }
         )
