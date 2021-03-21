@@ -1,6 +1,8 @@
 package com.redefantasy.proxy
 
+import com.redefantasy.core.shared.providers.cache.local.LocalCacheProvider
 import com.redefantasy.core.shared.providers.databases.postgres.providers.PostgresRepositoryProvider
+import com.redefantasy.proxy.misc.motd.storage.cache.local.MOTDLocalCache
 import com.redefantasy.proxy.misc.motd.storage.repositories.IMOTDRepository
 import com.redefantasy.proxy.misc.motd.storage.repositories.implementations.PostgresMOTDRepository
 import com.redefantasy.proxy.misc.tablist.storage.repositories.ITabListRepository
@@ -26,6 +28,18 @@ object ProxyProvider {
 
             val MOTD_REPOSITORY = PostgresRepositoryProvider<IMOTDRepository>(
                 PostgresMOTDRepository::class
+            )
+
+        }
+
+    }
+
+    object Cache {
+
+        object Local {
+
+            val MOTD = LocalCacheProvider(
+                MOTDLocalCache()
             )
 
         }

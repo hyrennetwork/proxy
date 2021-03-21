@@ -106,27 +106,34 @@ class ProxyPlugin : CustomPlugin() {
                     event.response.version.name = "Fantasy Proxy"
                     event.response.version.protocol = connection.version
 
-                    val applicationStatus = CoreProvider.Cache.Redis.APPLICATIONS_STATUS.provide().fetchApplicationStatusByApplication(
-                        CoreProvider.application,
-                        ApplicationStatus::class
-                    )
-
-                    val motd = ProxyProvider.Repositories.Postgres.MOTD_REPOSITORY.provide().fetch()
-
-                    if (applicationStatus !== null && CoreProvider.Repositories.Postgres.MAINTENANCE_REPOSITORY.provide().fetchByApplication(
-                            CoreProvider.application
-                    )) {
-                        val firstLine = motd.toLegacyText().split("\n")[0]
-
-                        event.response.descriptionComponent = TextComponent(
-                            String.format(
-                                "%s\n%s",
-                                firstLine,
-                                "§cO servidor atualmente encontra-se em manutenção."
-                            )
+                    val applicationStatus =
+                        CoreProvider.Cache.Redis.APPLICATIONS_STATUS.provide().fetchApplicationStatusByApplication(
+                            CoreProvider.application,
+                            ApplicationStatus::class
                         )
+
+                    val motd = ProxyProvider.Cache.Local.MOTD.provide().fetch()
+
+                    if (motd === null) {
+                        event.response.descriptionComponent = TextComponent("Não foi possível carregar a MOTD.")
                     } else {
-                        event.response.descriptionComponent = motd
+                        if (applicationStatus !== null && CoreProvider.Repositories.Postgres.MAINTENANCE_REPOSITORY.provide()
+                                .fetchByApplication(
+                                    CoreProvider.application
+                                )
+                        ) {
+                            val firstLine = motd.toLegacyText().split("\n")[0]
+
+                            event.response.descriptionComponent = TextComponent(
+                                String.format(
+                                    "%s\n%s",
+                                    firstLine,
+                                    "§cO servidor atualmente encontra-se em manutenção."
+                                )
+                            )
+                        } else {
+                            event.response.descriptionComponent = motd
+                        }
                     }
                 }
             }
