@@ -120,6 +120,8 @@ class ProxyPlugin : CustomPlugin() {
 
                         val firstLine = motd.toLegacyText().split("\\\n")[0]
 
+                        println("First Line: $firstLine")
+
                         event.response.descriptionComponent = TextComponent(
                             String.format(
                                 "%s\n%s",
