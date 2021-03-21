@@ -15,6 +15,7 @@ import com.redefantasy.proxy.echo.packets.listeners.DisconnectUserEchoPacketList
 import com.redefantasy.proxy.echo.packets.listeners.StaffMessageEchoPacketListener
 import com.redefantasy.proxy.echo.packets.listeners.TellEchoPacketListener
 import com.redefantasy.proxy.misc.login.listeners.LoginListeners
+import com.redefantasy.proxy.misc.maintenance.command.MaintenanceCommand
 import com.redefantasy.proxy.misc.punish.command.CheckPunishCommand
 import com.redefantasy.proxy.misc.punish.command.PunishCommand
 import com.redefantasy.proxy.misc.punish.command.RevokeCommand
@@ -36,6 +37,10 @@ class ProxyPlugin : CustomPlugin() {
 
         val pluginManager = ProxyServer.getInstance().pluginManager
 
+        /**
+         * Miscellaneous
+         */
+
         pluginManager.registerCommand(this, AccountCommand())
         pluginManager.registerCommand(this, GroupCommand())
         pluginManager.registerCommand(this, ServerCommand())
@@ -51,9 +56,19 @@ class ProxyPlugin : CustomPlugin() {
         pluginManager.registerCommand(this, ReplyCommand())
         pluginManager.registerCommand(this, TellCommand())
 
+        /**
+         * Punish
+         */
+
         pluginManager.registerCommand(this, PunishCommand())
         pluginManager.registerCommand(this, RevokeCommand())
         pluginManager.registerCommand(this, CheckPunishCommand())
+
+        /**
+         * Maintenance
+         */
+
+        pluginManager.registerCommand(this, MaintenanceCommand())
 
         pluginManager.registerListener(this, PunishListener())
         pluginManager.registerListener(this, LoginListeners())
