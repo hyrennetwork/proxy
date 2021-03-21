@@ -89,13 +89,13 @@ class ProxyPlugin : CustomPlugin() {
                 fun on(
                     event: ProxyPingEvent
                 ) {
-                    println("ping")
+                    val connection = event.connection
 
                     event.response.players.max = 600
                     event.response.players.online = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsers().size
 
                     event.response.version.name = "Fantasy Proxy"
-                    event.response.version.protocol = 3
+                    event.response.version.protocol = connection.version
 
                     val applicationStatus = CoreProvider.Cache.Redis.APPLICATIONS_STATUS.provide().fetchApplicationStatusByApplication(
                         CoreProvider.application,
