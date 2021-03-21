@@ -3,6 +3,8 @@ package com.redefantasy.proxy
 import com.redefantasy.core.bungee.misc.plugin.CustomPlugin
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.applications.status.ApplicationStatus
+import com.redefantasy.core.shared.applications.status.task.ApplicationStatusTask
+import com.redefantasy.core.shared.scheduler.AsyncScheduler
 import com.redefantasy.proxy.command.defaults.player.LobbyCommand
 import com.redefantasy.proxy.command.defaults.player.OnlineCommand
 import com.redefantasy.proxy.command.defaults.player.ReplyCommand
@@ -29,16 +31,21 @@ import net.md_5.bungee.api.chat.TextComponent
 import net.md_5.bungee.api.event.ProxyPingEvent
 import net.md_5.bungee.api.plugin.Listener
 import net.md_5.bungee.event.EventHandler
+import java.util.concurrent.TimeUnit
 
 /**
  * @author Gutyerrez
  */
 class ProxyPlugin : CustomPlugin() {
 
+    private var onlineSince = 0L
+
     override fun onEnable() {
         super.onEnable()
 
         ProxyProvider.prepare()
+
+        this.onlineSince = System.currentTimeMillis()
 
         val pluginManager = ProxyServer.getInstance().pluginManager
 
@@ -129,6 +136,31 @@ class ProxyPlugin : CustomPlugin() {
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(DisconnectUserEchoPacketListener())
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(UserPunishedEchoPacketListener())
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(UserUnPunishedEchoPacketListener())
+
+        AsyncScheduler.scheduleAsyncRepeatingTask(
+            object : ApplicationStatusTask(
+                ApplicationStatus(
+                    CoreProvider.application.name,
+                    CoreProvider.application.applicationType,
+                    CoreProvider.application.server,
+                    CoreProvider.application.address,
+                    this.onlineSince
+                )
+            ) {
+                override fun buildApplicationStatus(
+                    applicationStatus: ApplicationStatus
+                ) {
+                    val runtime = Runtime.getRuntime()
+
+                    applicationStatus.heapSize = runtime.totalMemory()
+                    applicationStatus.heapMaxSize = runtime.maxMemory()
+                    applicationStatus.heapFreeSize = runtime.freeMemory()
+                }
+            },
+            0,
+            1,
+            TimeUnit.SECONDS
+        )
     }
 
 }
