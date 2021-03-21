@@ -23,7 +23,13 @@ import com.redefantasy.proxy.misc.punish.listener.PunishListener
 import com.redefantasy.proxy.misc.punish.packets.listeners.UserPunishedEchoPacketListener
 import com.redefantasy.proxy.misc.punish.packets.listeners.UserUnPunishedEchoPacketListener
 import com.redefantasy.proxy.misc.tablist.listeners.TabListPreLoginListener
+import net.md_5.bungee.BungeeCord
 import net.md_5.bungee.api.ProxyServer
+import net.md_5.bungee.api.ServerPing
+import net.md_5.bungee.api.chat.TextComponent
+import net.md_5.bungee.api.event.ProxyPingEvent
+import net.md_5.bungee.api.plugin.Listener
+import net.md_5.bungee.event.EventHandler
 
 /**
  * @author Gutyerrez
@@ -70,9 +76,42 @@ class ProxyPlugin : CustomPlugin() {
 
         pluginManager.registerCommand(this, MaintenanceCommand())
 
+        /**
+         * Listeners
+         */
+
         pluginManager.registerListener(this, PunishListener())
         pluginManager.registerListener(this, LoginListeners())
         pluginManager.registerListener(this, TabListPreLoginListener())
+
+        pluginManager.registerListener(
+            object : Listener {
+                @EventHandler
+                fun on(
+                    event: ProxyPingEvent
+                ) {
+                    println("ping")
+
+                    val serverPing = ServerPing(
+                        ServerPing.Protocol(
+                            "",
+                            BungeeCord.getInstance().protocolVersion
+                        ),
+                        ServerPing.Players(
+                            600,
+                            CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsers().size,
+                            event.response.players.sample
+                        ),
+                        TextComponent("§7Testando 1, 2, 3..."),
+                        event.response.faviconObject
+                    )
+
+                    event.response = serverPing
+
+                    event.postCall()
+                }
+            }
+        )
 
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(TellEchoPacketListener())
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(StaffMessageEchoPacketListener())
