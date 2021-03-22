@@ -19,13 +19,18 @@ class PreLoginListener : Listener {
         val name = event.connection.name
         val user = CoreProvider.Cache.Local.USERS.provide().fetchByName(name)
 
-        if (CoreProvider.Repositories.Postgres.MAINTENANCE_REPOSITORY.provide().fetchByApplication(CoreProvider.application) && (user === null || !user.hasGroup(Group.MANAGER))) {
-            event.setCancelReason(
-                *ComponentBuilder("§c§lREDE FANTASY")
-                    .append("\n\n")
-                    .append("§cO servidor está atualmente em manutenção.")
-                    .create()
-            )
+        if (CoreProvider.Cache.Local.MAINTENANCE.provide().fetch(CoreProvider.application) == true) {
+            when {
+                user === null || !user.hasGroup(Group.MANAGER) -> {
+                    event.setCancelReason(
+                        *ComponentBuilder("§c§lREDE FANTASY")
+                            .append("\n\n")
+                            .append("§cO servidor está atualmente em manutenção.")
+                            .create()
+                    )
+                    event.isCancelled = true
+                }
+            }
         }
     }
 
