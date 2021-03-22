@@ -14,7 +14,7 @@ class TellEchoPacketListener : EchoListener {
 
     @Subscribe
     fun on(
-            packet: TellPacket
+        packet: TellPacket
     ) {
         val senderId = packet.senderId
         val receiverId = packet.receiverId
@@ -24,14 +24,14 @@ class TellEchoPacketListener : EchoListener {
         val receiver = CoreProvider.Cache.Local.USERS.provide().fetchById(receiverId!!)!!
 
         val toMessage = ComponentBuilder()
-                .append("§8[Para ${receiver.getHighestGroup().getColoredPrefix()}${receiver.name}§8]: ")
-                .append("§6$message")
-                .create()
+            .append("§8[Para ${receiver.getHighestGroup().getColoredPrefix()}${receiver.name}§8]: ")
+            .append("§6$message")
+            .create()
 
         val fromMessage = ComponentBuilder()
-                .append("§8[De ${sender.getHighestGroup().getColoredPrefix()}${sender.name}§8]: ")
+            .append("§8[De ${sender.getHighestGroup().getColoredPrefix()}${sender.name}§8]: ")
             .append("§6$message")
-                .create()
+            .create()
 
         val senderPlayer = ProxyServer.getInstance().getPlayer(sender.getUniqueId())
         val receiverPlayer = ProxyServer.getInstance().getPlayer(receiver.getUniqueId())
