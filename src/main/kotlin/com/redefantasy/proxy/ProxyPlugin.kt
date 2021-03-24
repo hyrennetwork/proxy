@@ -4,6 +4,8 @@ import com.redefantasy.core.bungee.misc.plugin.CustomPlugin
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.applications.status.ApplicationStatus
 import com.redefantasy.core.shared.applications.status.task.ApplicationStatusTask
+import com.redefantasy.core.shared.misc.preferences.PreferenceRegistry
+import com.redefantasy.core.shared.misc.preferences.data.TellPreference
 import com.redefantasy.core.shared.scheduler.AsyncScheduler
 import com.redefantasy.proxy.command.defaults.player.LobbyCommand
 import com.redefantasy.proxy.command.defaults.player.OnlineCommand
@@ -139,12 +141,28 @@ class ProxyPlugin : CustomPlugin() {
             }
         )
 
+        /**
+         * Preferences
+         */
+
+        PreferenceRegistry.register(
+            TellPreference()
+        )
+
+        /**
+         * ECHO
+         */
+
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(TellEchoPacketListener())
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(StaffMessageEchoPacketListener())
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(BroadCastMessageEchoPacketListener())
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(DisconnectUserEchoPacketListener())
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(UserPunishedEchoPacketListener())
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(UserUnPunishedEchoPacketListener())
+
+        /**
+         * Status
+         */
 
         AsyncScheduler.scheduleAsyncRepeatingTask(
             object : ApplicationStatusTask(
