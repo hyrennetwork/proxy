@@ -4,6 +4,7 @@ import com.redefantasy.core.bungee.misc.plugin.CustomPlugin
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.applications.status.ApplicationStatus
 import com.redefantasy.core.shared.applications.status.task.ApplicationStatusTask
+import com.redefantasy.core.shared.echo.packets.listener.UserPreferencesUpdatedEchoPacketListener
 import com.redefantasy.core.shared.misc.preferences.PreferenceRegistry
 import com.redefantasy.core.shared.misc.preferences.data.TellPreference
 import com.redefantasy.core.shared.scheduler.AsyncScheduler
@@ -159,6 +160,7 @@ class ProxyPlugin : CustomPlugin() {
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(DisconnectUserEchoPacketListener())
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(UserPunishedEchoPacketListener())
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(UserUnPunishedEchoPacketListener())
+        CoreProvider.Databases.Redis.ECHO.provide().registerListener(UserPreferencesUpdatedEchoPacketListener())
 
         /**
          * Status
