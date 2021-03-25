@@ -6,7 +6,7 @@ import com.redefantasy.core.shared.applications.ApplicationType
 import com.redefantasy.core.shared.commands.argument.Argument
 import com.redefantasy.core.shared.commands.restriction.CommandRestriction
 import com.redefantasy.core.shared.misc.preferences.PreferenceState
-import com.redefantasy.core.shared.misc.preferences.data.TellPreference
+import com.redefantasy.core.shared.misc.preferences.TELL_PREFERENCE
 import com.redefantasy.core.shared.misc.utils.DefaultMessage
 import com.redefantasy.core.shared.users.data.User
 import com.redefantasy.proxy.echo.packets.TellPacket
@@ -65,7 +65,7 @@ class TellCommand : CustomCommand("tell") {
             return false
         }
 
-        if (targetUser.getPreferences().find { it == TellPreference() }?.preferenceState === PreferenceState.DISABLED) {
+        if (targetUser.getPreferences().find { it == TELL_PREFERENCE }?.preferenceState === PreferenceState.DISABLED) {
             commandSender.sendMessage(
                 TextComponent("§cEste usuário está com o recebimento de mensagens privadas desativado.")
             )
