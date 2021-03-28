@@ -65,8 +65,6 @@ class TellCommand : CustomCommand("tell") {
             return false
         }
 
-        println(targetUser.getPreferences())
-
         if (targetUser.getPreferences().find { it == TELL_PREFERENCE }?.preferenceState === PreferenceState.DISABLED) {
             commandSender.sendMessage(
                 TextComponent("§cEste usuário está com o recebimento de mensagens privadas desativado.")
