@@ -4,6 +4,7 @@ import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.echo.api.listener.EchoListener
 import com.redefantasy.proxy.echo.packets.TellPacket
 import net.md_5.bungee.api.ProxyServer
+import net.md_5.bungee.api.chat.ClickEvent
 import net.md_5.bungee.api.chat.ComponentBuilder
 import org.greenrobot.eventbus.Subscribe
 
@@ -25,11 +26,21 @@ class TellEchoPacketListener : EchoListener {
 
         val toMessage = ComponentBuilder()
             .append("§8Para ${receiver.getHighestGroup().getColoredPrefix()}${receiver.name}§8: ")
+            .event(
+                ClickEvent(
+                    ClickEvent.Action.SUGGEST_COMMAND, "/tell ${receiver.name} "
+                )
+            )
             .append("§6$message")
             .create()
 
         val fromMessage = ComponentBuilder()
             .append("§8De ${sender.getHighestGroup().getColoredPrefix()}${sender.name}§8: ")
+            .event(
+                ClickEvent(
+                    ClickEvent.Action.SUGGEST_COMMAND, "/tell ${sender.name} "
+                )
+            )
             .append("§6$message")
             .create()
 
