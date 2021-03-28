@@ -69,7 +69,7 @@ class TellCommand : CustomCommand("tell") {
             commandSender.sendMessage(
                 TextComponent("§cEste usuário está com o recebimento de mensagens privadas desativado.")
             )
-            return true
+            return false
         }
 
         user.directMessage = targetUser
