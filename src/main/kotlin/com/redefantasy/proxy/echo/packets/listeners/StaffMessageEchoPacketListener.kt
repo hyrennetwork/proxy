@@ -32,7 +32,7 @@ class StaffMessageEchoPacketListener : EchoListener {
 
         val message = ComponentBuilder()
                 .append("§d§l[S] ")
-                .append("§7(${bukkitApplication?.server?.displayName ?: bukkitApplication?.getFancyDisplayName()}) ")
+                .append("§7(${bukkitApplication?.server?.getFancyDisplayName() ?: bukkitApplication?.getFancyDisplayName()}) ")
                 .append("${group.getColoredPrefix()}${user.name}: ")
                 .append("§f${packet.message}")
                 .create()

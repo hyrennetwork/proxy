@@ -50,7 +50,7 @@ class StaffListCommand : CustomCommand("staff"), GroupCommandRestrictable {
                 val bukkitApplication = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchBukkitApplication(it)
 
                 message.append(
-                    "§f ${if (it == user) "*" else "-"} $prefix${it.name} §7(${bukkitApplication?.server?.displayName ?: bukkitApplication?.getFancyDisplayName() ?: "Desconhecido"})"
+                    "§f ${if (it == user) "*" else "-"} $prefix${it.name} §7(${bukkitApplication?.server?.getFancyDisplayName() ?: bukkitApplication?.getFancyDisplayName() ?: "Desconhecido"})"
                 ).append("\n")
             }
 

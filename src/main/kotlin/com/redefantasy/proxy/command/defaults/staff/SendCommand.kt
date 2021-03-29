@@ -52,6 +52,11 @@ class SendCommand : CustomCommand("send"), GroupCommandRestrictable {
             return false
         }
 
+        if (bukkitApplication === null) {
+            commandSender.sendMessage(TextComponent("§cEsta aplicação não existe."))
+            return false
+        }
+
         val packet = ConnectUserToApplicationPacket(
             user.id,
             bukkitApplication
