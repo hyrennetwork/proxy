@@ -35,6 +35,7 @@ class LobbyCommand : CustomCommand("lobby") {
             return false
         }
 
+        println("Preferencias: ${user.getPreferences().contentToString()}")
         println("Preferencia: ${user.getPreferences().find { it == LOBBY_COMMAND_PROTECTION }?.preferenceState}")
         println("Cache: ${this.CACHE.getIfPresent(user) === null}")
 
