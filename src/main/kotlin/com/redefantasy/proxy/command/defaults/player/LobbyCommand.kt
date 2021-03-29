@@ -24,9 +24,9 @@ class LobbyCommand : CustomCommand("lobby") {
     override fun getDescription() = "Teleportar-se para um saguão."
 
     override fun onCommand(
-            commandSender: CommandSender,
-            user: User?,
-            args: Array<out String>
+        commandSender: CommandSender,
+        user: User?,
+        args: Array<out String>
     ): Boolean {
         var bukkitApplication = user!!.getConnectedBukkitApplication()
 
@@ -35,11 +35,11 @@ class LobbyCommand : CustomCommand("lobby") {
             return false
         }
 
-        println("Preferencias: ${user.getPreferences().contentToString()}")
-        println("Preferencia: ${user.getPreferences().find { it == LOBBY_COMMAND_PROTECTION }?.preferenceState}")
-        println("Cache: ${this.CACHE.getIfPresent(user) === null}")
-
-        if (user.getPreferences().find { it == LOBBY_COMMAND_PROTECTION }?.preferenceState === PreferenceState.ENABLED && this.CACHE.getIfPresent(user) === null) {
+        if (user.getPreferences()
+                .find { it == LOBBY_COMMAND_PROTECTION }?.preferenceState === PreferenceState.ENABLED && this.CACHE.getIfPresent(
+                user
+            ) === null
+        ) {
             commandSender.sendMessage(TextComponent("§eVocê tem certeza? Utilize /lobby novamente para voltar ao saguão."))
 
             this.CACHE.put(user, System.currentTimeMillis())
