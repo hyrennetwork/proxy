@@ -5,6 +5,7 @@ import com.redefantasy.core.bungee.command.CustomCommand
 import com.redefantasy.core.shared.CoreConstants
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.commands.argument.Argument
+import com.redefantasy.core.shared.echo.packets.UserGroupsUpdatedPacket
 import com.redefantasy.core.shared.groups.Group
 import com.redefantasy.core.shared.misc.utils.DefaultMessage
 import com.redefantasy.core.shared.users.data.User
@@ -64,6 +65,12 @@ class GroupAddCommand : CustomCommand("adicionar") {
                         dueAt
                 )
         )
+
+        val packet = UserGroupsUpdatedPacket(
+            targetUser.id
+        )
+
+        CoreProvider.Databases.Redis.ECHO.provide().publishToAll(packet)
 
         commandSender.sendMessage(TextComponent("§aVocê adicionou o grupo ${group.get().displayName} para o usuário ${targetUser.name}."))
         return false
