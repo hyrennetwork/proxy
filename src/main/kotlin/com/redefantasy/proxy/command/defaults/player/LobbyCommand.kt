@@ -35,6 +35,9 @@ class LobbyCommand : CustomCommand("lobby") {
             return false
         }
 
+        println("Preferencia: ${user.getPreferences().find { it == LOBBY_COMMAND_PROTECTION }?.preferenceState}")
+        println("Cache: ${this.CACHE.getIfPresent(user) === null}")
+
         if (user.getPreferences().find { it == LOBBY_COMMAND_PROTECTION }?.preferenceState === PreferenceState.ENABLED && this.CACHE.getIfPresent(user) === null) {
             commandSender.sendMessage(TextComponent("§eVocê tem certeza? Utilize /lobby novamente para voltar ao saguão."))
 
