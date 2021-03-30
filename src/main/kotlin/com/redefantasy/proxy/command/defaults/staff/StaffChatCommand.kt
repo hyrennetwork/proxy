@@ -36,10 +36,8 @@ class StaffChatCommand : CustomCommand("s"), GroupCommandRestrictable {
 
         val packet = StaffMessagePacket()
 
-        val bukkitApplication = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchBukkitApplication(user)
-
         packet.stafferId = user.getUniqueId()
-        packet.bukkitApplication = bukkitApplication
+        packet.bukkitApplication = user.getConnectedBukkitApplication()
         packet.message = message
 
         CoreProvider.Databases.Redis.ECHO.provide().publishToAll(packet)
