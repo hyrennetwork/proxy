@@ -43,6 +43,7 @@ class StaffListCommand : CustomCommand("staff"), GroupCommandRestrictable {
             .append("\n\n")
 
         users.stream()
+            .filter { it?.isLogged() == true }
             .sorted { user1, user2 -> user2!!.getHighestGroup().priority!!.compareTo(user1!!.getHighestGroup().priority!!) }
             .forEach {
                 val highestGroup = it!!.getHighestGroup()

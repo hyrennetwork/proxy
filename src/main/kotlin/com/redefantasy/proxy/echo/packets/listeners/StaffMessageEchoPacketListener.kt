@@ -19,11 +19,14 @@ class StaffMessageEchoPacketListener : EchoListener {
             packet: StaffMessagePacket
     ) {
         val bukkitApplication = packet.bukkitApplication
+
+        println(bukkitApplication)
+
         val staffers = ProxyServer.getInstance().players.stream()
                 .filter {
                     val user = CoreProvider.Cache.Local.USERS.provide().fetchById(it.uniqueId)
 
-                    user !== null && user.hasGroup(Group.HELPER)
+                    user !== null && user.isLogged() && user.hasGroup(Group.HELPER)
                 }
                 .collect(Collectors.toList())
 
