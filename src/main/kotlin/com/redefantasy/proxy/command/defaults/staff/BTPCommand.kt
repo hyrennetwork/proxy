@@ -2,17 +2,16 @@ package com.redefantasy.proxy.command.defaults.staff
 
 import com.redefantasy.core.bungee.command.CustomCommand
 import com.redefantasy.core.shared.CoreProvider
+import com.redefantasy.core.shared.applications.ApplicationType
 import com.redefantasy.core.shared.commands.argument.Argument
 import com.redefantasy.core.shared.commands.restriction.CommandRestriction
 import com.redefantasy.core.shared.commands.restriction.entities.implementations.GroupCommandRestrictable
-import com.redefantasy.core.shared.echo.packets.teleport.TeleportToApplicationAndUserPacket
-import com.redefantasy.core.shared.echo.packets.teleport.state.TeleportToApplicationAndUserStatePacket
+import com.redefantasy.core.shared.echo.packets.ConnectUserToApplicationPacket
 import com.redefantasy.core.shared.groups.Group
 import com.redefantasy.core.shared.misc.utils.DefaultMessage
 import com.redefantasy.core.shared.users.data.User
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.TextComponent
-import net.md_5.bungee.api.connection.ProxiedPlayer
 
 /**
  * @author Gutyerrez
@@ -46,28 +45,24 @@ class BTPCommand : CustomCommand("btp"), GroupCommandRestrictable {
             return false
         }
 
-        val bukkitApplication = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchBukkitApplication(targetUser)
+        val bukkitApplication = targetUser.getConnectedBukkitApplication()
 
         if (bukkitApplication === null) {
             commandSender.sendMessage(TextComponent("§cNão foi possível localizar a aplicação que o usuário está."))
             return false
         }
 
-        val packet = TeleportToApplicationAndUserPacket()
-
-        packet.userId = user!!.getUniqueId()
-        packet.targetUserId = targetUser.getUniqueId()
-
-        CoreProvider.Databases.Redis.ECHO.provide().publishToApplication(
-            packet,
+        val packet = ConnectUserToApplicationPacket(
+            user?.id,
             bukkitApplication
-        ) {
-            if (it.teleportState === TeleportToApplicationAndUserStatePacket.TeleportState.REQUESTING) {
-                val proxiedPlayer = commandSender as ProxiedPlayer
+        )
 
-                proxiedPlayer.connect { bukkitApplication.address }
-            }
-        }
+        CoreProvider.Databases.Redis.ECHO.provide().publishToApplicationType(
+            packet,
+            ApplicationType.PROXY
+        )
+
+        commandSender.sendMessage(TextComponent("§aConectando..."))
         return false
     }
 

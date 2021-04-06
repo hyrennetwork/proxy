@@ -137,17 +137,20 @@ class PunishCommand : CustomCommand("punir"), GroupCommandRestrictable {
                         it.punishCategory === punishCategory
                     }.collect(Collectors.toList())
 
-                if (userPunishments.stream().anyMatch {
-                        (it.startTime === null || it.startTime!! + TimeUnit.MINUTES.toMillis(3) >= DateTime.now(
-                            CoreConstants.DATE_TIME_ZONE
-                        )) && it.revokeTime === null
-                }) {
+                val latestPunishment = userPunishments.stream()
+                    .filter { it.isStrictActive() || it.isPending() }
+                    .findFirst()
+                    .orElse(null)
+
+                if (latestPunishment !== null && latestPunishment.createdAt + TimeUnit.MINUTES.toMillis(3) >= DateTime.now(
+                    CoreConstants.DATE_TIME_ZONE
+                )) {
                     commandSender.sendMessage(TextComponent("§cEste usuário possui uma punição recente por essa categoria."))
                     return false
                 }
 
                 val punishDuration = punishCategory.punishDurations[
-                        if (punishCategory.punishDurations.size <= userPunishments.size + 1) punishCategory.punishDurations.size - 1 else userPunishments.size
+                    if (punishCategory.punishDurations.size <= userPunishments.size + 1) punishCategory.punishDurations.size - 1 else userPunishments.size
                 ]
 
                 val userPunishment = CoreProvider.Repositories.Postgres.USERS_PUNISHMENTS_REPOSITORY.provide().create(

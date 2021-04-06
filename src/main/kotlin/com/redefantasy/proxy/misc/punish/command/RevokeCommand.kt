@@ -25,7 +25,7 @@ import org.joda.time.DateTime
 /**
  * @author Gutyerrez
  */
-class RevokeCommand : CustomCommand("despunir"), GroupCommandRestrictable {
+class RevokeCommand : CustomCommand("revogar"), GroupCommandRestrictable {
 
     override fun getDescription() = "Revogar uma punição."
 

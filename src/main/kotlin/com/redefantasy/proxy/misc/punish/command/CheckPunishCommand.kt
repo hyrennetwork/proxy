@@ -112,7 +112,7 @@ class CheckPunishCommand : CustomCommand("checkpunir"), GroupCommandRestrictable
                     .event(
                             ClickEvent(
                                     ClickEvent.Action.SUGGEST_COMMAND,
-                                    "/despunir ${userPunishment.id.value}"
+                                    "/revogar ${userPunishment.id.value}"
                             )
                     )
 
