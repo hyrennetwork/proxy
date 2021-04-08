@@ -30,6 +30,7 @@ import com.redefantasy.proxy.misc.punish.listener.PunishListener
 import com.redefantasy.proxy.misc.punish.packets.listeners.UserPunishedEchoPacketListener
 import com.redefantasy.proxy.misc.punish.packets.listeners.UserUnPunishedEchoPacketListener
 import com.redefantasy.proxy.misc.tablist.listeners.TabListPostLoginListener
+import net.md_5.bungee.BungeeCord
 import net.md_5.bungee.api.ProxyServer
 import net.md_5.bungee.api.chat.TextComponent
 import net.md_5.bungee.api.event.ProxyPingEvent
@@ -111,17 +112,16 @@ class ProxyPlugin : CustomPlugin() {
                 ) {
                     val connection = event.connection
 
-                    event.response.players.max = 600
+                    event.response.players.max = 1000
                     event.response.players.online = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsers().size
 
                     event.response.version.name = "Fantasy Proxy"
                     event.response.version.protocol = connection.version
 
-                    val applicationStatus =
-                        CoreProvider.Cache.Redis.APPLICATIONS_STATUS.provide().fetchApplicationStatusByApplication(
-                            CoreProvider.application,
-                            ApplicationStatus::class
-                        )
+                    val applicationStatus = CoreProvider.Cache.Redis.APPLICATIONS_STATUS.provide().fetchApplicationStatusByApplication(
+                        CoreProvider.application,
+                        ApplicationStatus::class
+                    )
 
                     val motd = ProxyProvider.Cache.Local.MOTD.provide().fetch()
 
@@ -184,6 +184,7 @@ class ProxyPlugin : CustomPlugin() {
                     applicationStatus.heapSize = runtime.totalMemory()
                     applicationStatus.heapMaxSize = runtime.maxMemory()
                     applicationStatus.heapFreeSize = runtime.freeMemory()
+                    applicationStatus.onlinePlayers = BungeeCord.getInstance().connections.size
                 }
             },
             0,
