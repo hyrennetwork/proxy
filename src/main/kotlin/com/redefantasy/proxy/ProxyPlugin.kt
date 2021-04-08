@@ -32,10 +32,6 @@ import com.redefantasy.proxy.misc.punish.packets.listeners.UserUnPunishedEchoPac
 import com.redefantasy.proxy.misc.tablist.listeners.TabListPostLoginListener
 import net.md_5.bungee.BungeeCord
 import net.md_5.bungee.api.ProxyServer
-import net.md_5.bungee.api.chat.TextComponent
-import net.md_5.bungee.api.event.ProxyPingEvent
-import net.md_5.bungee.api.plugin.Listener
-import net.md_5.bungee.event.EventHandler
 import java.util.concurrent.TimeUnit
 
 /**
@@ -103,52 +99,6 @@ class ProxyPlugin : CustomPlugin() {
         pluginManager.registerListener(LoginListeners())
         pluginManager.registerListener(PreLoginListener())
         pluginManager.registerListener(TabListPostLoginListener())
-
-        pluginManager.registerListener(
-            object : Listener {
-                @EventHandler
-                fun on(
-                    event: ProxyPingEvent
-                ) {
-                    val connection = event.connection
-
-                    event.response.players.max = 1000
-                    event.response.players.online = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsers().size
-
-                    event.response.version.name = "Fantasy Proxy"
-                    event.response.version.protocol = connection.version
-
-                    val applicationStatus = CoreProvider.Cache.Redis.APPLICATIONS_STATUS.provide().fetchApplicationStatusByApplication(
-                        CoreProvider.application,
-                        ApplicationStatus::class
-                    )
-
-                    val motd = ProxyProvider.Cache.Local.MOTD.provide().fetch()
-
-                    if (motd === null) {
-                        event.response.descriptionComponent = TextComponent("Não foi possível carregar a MOTD.")
-                    } else {
-                        if (applicationStatus !== null && CoreProvider.Repositories.Postgres.MAINTENANCE_REPOSITORY.provide()
-                                .fetchByApplication(
-                                    CoreProvider.application
-                                )
-                        ) {
-                            val firstLine = motd.toLegacyText().split("\n")[0]
-
-                            event.response.descriptionComponent = TextComponent(
-                                String.format(
-                                    "%s\n%s",
-                                    firstLine,
-                                    "§cO servidor atualmente encontra-se em manutenção."
-                                )
-                            )
-                        } else {
-                            event.response.descriptionComponent = motd
-                        }
-                    }
-                }
-            }
-        )
 
         /**
          * ECHO
