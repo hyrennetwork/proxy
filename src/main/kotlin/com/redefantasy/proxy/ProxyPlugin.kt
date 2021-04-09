@@ -20,6 +20,7 @@ import com.redefantasy.proxy.echo.packets.listeners.BroadCastMessageEchoPacketLi
 import com.redefantasy.proxy.echo.packets.listeners.DisconnectUserEchoPacketListener
 import com.redefantasy.proxy.echo.packets.listeners.StaffMessageEchoPacketListener
 import com.redefantasy.proxy.echo.packets.listeners.TellEchoPacketListener
+import com.redefantasy.proxy.listeners.connection.PostLoginListener
 import com.redefantasy.proxy.listeners.connection.PreLoginListener
 import com.redefantasy.proxy.misc.login.listeners.LoginListeners
 import com.redefantasy.proxy.misc.maintenance.command.MaintenanceCommand
@@ -98,6 +99,7 @@ class ProxyPlugin : CustomPlugin() {
         pluginManager.registerListener(PunishListener())
         pluginManager.registerListener(LoginListeners())
         pluginManager.registerListener(PreLoginListener())
+        pluginManager.registerListener(PostLoginListener())
         pluginManager.registerListener(TabListPostLoginListener())
 
         /**
