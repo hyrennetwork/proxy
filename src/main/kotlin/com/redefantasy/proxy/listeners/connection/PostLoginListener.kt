@@ -40,7 +40,7 @@ class PostLoginListener : Listener {
 				LoginResult.Property(
 					"textures",
 					skin.value,
-					skin.signature
+					null
 				)
 			)
 		}
