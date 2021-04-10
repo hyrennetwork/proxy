@@ -35,6 +35,8 @@ class PostLoginListener : Listener {
 		if (skin !== null) {
 			val loginProfile = initialHandler.loginProfile
 
+			if (loginProfile === null) return
+
 			loginProfile.properties = arrayOf(
 				LoginResult.Property(
 					"textures",
