@@ -23,17 +23,14 @@ class PostLoginListener : Listener {
 
 		val initialHandler = player.pendingConnection as InitialHandler
 
-		val skin: Skin? =
-			if (user !== null && CoreProvider.Cache.Local.USERS_SKINS.provide().fetchByUserId(user.id) !== null
-				&& CoreProvider.Cache.Local.USERS_SKINS.provide().fetchByUserId(user.id)!!.isNotEmpty()
-			) {
-				CoreProvider.Cache.Local.USERS_SKINS.provide().invalidate(user.id)
+		val skin: Skin? = if (user !== null) {
+			CoreProvider.Cache.Local.USERS_SKINS.provide().invalidate(user.id)
 
-				CoreProvider.Cache.Local.USERS_SKINS.provide().fetchByUserId(user.id)!!.stream()
-					.filter { it.enabled }
-					.findFirst()
-					.orElse(null)?.skin
-			} else SkinController.fetchSkinByName(player.name)
+			CoreProvider.Cache.Local.USERS_SKINS.provide().fetchByUserId(user.id)!!.stream()
+				.filter { it.enabled }
+				.findFirst()
+				.orElse(null)?.skin
+		} else SkinController.fetchSkinByName(player.name)
 
 		if (skin !== null) {
 			val loginProfile = initialHandler.loginProfile
