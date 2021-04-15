@@ -29,7 +29,7 @@ class PostLoginListener : Listener {
 			CoreProvider.Cache.Local.USERS_SKINS.provide().fetchByUserId(user.id)?.stream()
 				?.filter { it.enabled }
 				?.findFirst()
-				?.orElse(null)?.skin
+				?.orElse(null)?.skin ?: SkinController.fetchSkinByName(player.name)
 		} else SkinController.fetchSkinByName(player.name)
 
 		if (skin !== null) {
