@@ -46,8 +46,6 @@ class LoginListeners : Listener {
 
         val user = CoreProvider.Cache.Local.USERS.provide().fetchById(proxiedPlayer.uniqueId)
 
-        println("disconnected")
-
         if (user !== null) {
             user.setLogged(false)
 
