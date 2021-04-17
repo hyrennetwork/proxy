@@ -33,7 +33,7 @@ class PostLoginListener : Listener {
 		} else SkinController.fetchSkinByName(player.name)
 
 		if (skin !== null) {
-			val loginProfile = initialHandler.loginProfile ?: LoginResult(
+			val loginProfile = LoginResult(
 				player.uuid,
 				player.name,
 				emptyArray()
@@ -46,6 +46,12 @@ class PostLoginListener : Listener {
 					skin.signature
 				)
 			)
+
+			val field = initialHandler::class.java.getDeclaredField("loginProfile")
+
+			field.isAccessible = true
+
+			field.set(initialHandler, loginProfile)
 		}
 	}
 
