@@ -16,6 +16,8 @@ import java.util.*
  */
 class AccountRegisterCommand : CustomCommand("registrar") {
 
+	override fun getDescription() = "Registrar um usuário."
+
 	override fun getArguments() = listOf(
 		Argument("usuário"),
 		Argument("senha")
