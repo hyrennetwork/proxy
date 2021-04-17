@@ -33,9 +33,11 @@ class PostLoginListener : Listener {
 		} else SkinController.fetchSkinByName(player.name)
 
 		if (skin !== null) {
-			val loginProfile = initialHandler.loginProfile
-
-			if (loginProfile === null) return
+			val loginProfile = initialHandler.loginProfile ?: LoginResult(
+				player.uuid,
+				player.name,
+				emptyArray()
+			)
 
 			loginProfile.properties = arrayOf(
 				LoginResult.Property(
