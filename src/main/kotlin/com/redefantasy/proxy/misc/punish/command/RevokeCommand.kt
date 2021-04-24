@@ -91,7 +91,7 @@ class RevokeCommand : CustomCommand("revogar"), GroupCommandRestrictable {
                         .event(
                             ClickEvent(
                                 ClickEvent.Action.SUGGEST_COMMAND,
-                                "/despunir ${args[0]} ${it.name}"
+                                "/${this.name} ${args[0]} ${it.name}"
                             )
                         )
 

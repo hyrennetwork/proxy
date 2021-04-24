@@ -25,7 +25,7 @@ class TellEchoPacketListener : EchoListener {
         val receiver = CoreProvider.Cache.Local.USERS.provide().fetchById(receiverId!!)!!
 
         val toMessage = ComponentBuilder()
-            .append("§8Para ${receiver.getHighestGroup().getColoredPrefix()}${receiver.name}§8: ")
+            .append("§8[Mensagem para ${receiver.getHighestGroup().getColoredPrefix()}${receiver.name}§8]: ")
             .event(
                 ClickEvent(
                     ClickEvent.Action.SUGGEST_COMMAND, "/tell ${receiver.name} "
@@ -35,7 +35,7 @@ class TellEchoPacketListener : EchoListener {
             .create()
 
         val fromMessage = ComponentBuilder()
-            .append("§8De ${sender.getHighestGroup().getColoredPrefix()}${sender.name}§8: ")
+            .append("§8[Mensagem de ${sender.getHighestGroup().getColoredPrefix()}${sender.name}§8]: ")
             .event(
                 ClickEvent(
                     ClickEvent.Action.SUGGEST_COMMAND, "/tell ${sender.name} "
