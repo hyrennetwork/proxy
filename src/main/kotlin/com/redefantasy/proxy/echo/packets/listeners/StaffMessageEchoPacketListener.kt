@@ -20,8 +20,6 @@ class StaffMessageEchoPacketListener : EchoListener {
     ) {
         val bukkitApplication = packet.bukkitApplication
 
-        println(bukkitApplication)
-
         val staffers = ProxyServer.getInstance().players.stream()
                 .filter {
                     val user = CoreProvider.Cache.Local.USERS.provide().fetchById(it.uniqueId)
