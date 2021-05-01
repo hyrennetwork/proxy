@@ -1,3 +1,5 @@
+name: Proxy
+
 on: [ 'push' ]
 
 jobs:
