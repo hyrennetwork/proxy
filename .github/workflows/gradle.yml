@@ -1,9 +1,7 @@
-name: Proxy
-
 on: [ 'push' ]
 
 jobs:
-  build:
+  proxy:
     runs-on: self-hosted
 
     steps:
