@@ -10,9 +10,9 @@ version = "0.1-ALPHA"
 repositories {
     mavenCentral()
 
-    mavenLocal()
-
     jcenter()
+
+	maven("https://maven.pkg.github.com/hyrendev/nexus/")
 }
 
 tasks {
@@ -64,6 +64,6 @@ dependencies {
     compileOnly("com.github.ben-manes.caffeine:caffeine:2.8.5")
 
     // core
-    compileOnly("com.redefantasy:core-shared:0.1-ALPHA")
-    compileOnly("com.redefantasy:core-bungee:0.1-ALPHA")
+//    compileOnly("com.redefantasy:core-shared:0.1-ALPHA")
+//    compileOnly("com.redefantasy:core-bungee:0.1-ALPHA")
 }
