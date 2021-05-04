@@ -26,21 +26,6 @@ tasks {
         val fileName = "${project.name}.jar"
 
         archiveFileName.set("${project.name}.jar")
-
-        doLast {
-            try {
-                val file = file("build/libs/$fileName")
-
-                val toDelete = file("/home/cloud/output/$fileName")
-
-                if (toDelete.exists()) toDelete.delete()
-
-                file.copyTo(file("/home/cloud/output/$fileName"))
-                file.delete()
-            } catch (ex: java.io.FileNotFoundException) {
-                ex.printStackTrace()
-            }
-        }
     }
 }
 
@@ -64,6 +49,6 @@ dependencies {
     compileOnly("com.github.ben-manes.caffeine:caffeine:2.8.5")
 
     // core
-//    compileOnly("com.redefantasy:core-shared:0.1-ALPHA")
-//    compileOnly("com.redefantasy:core-bungee:0.1-ALPHA")
+    compileOnly("com.redefantasy:core-shared:0.1-ALPHA")
+    compileOnly("com.redefantasy:core-bungee:0.1-ALPHA")
 }
