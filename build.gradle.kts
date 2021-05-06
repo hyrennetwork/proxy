@@ -12,7 +12,12 @@ repositories {
 
     jcenter()
 
-	maven("https://maven.pkg.github.com/hyrendev/nexus/")
+    maven("https://maven.pkg.github.com/hyrendev/nexus/") {
+        credentials {
+            username = System.getenv("MAVEN_USERNAME")
+            password = System.getenv("MAVEN_PASSWORD")
+        }
+    }
 }
 
 tasks {
