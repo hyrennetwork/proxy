@@ -12,6 +12,7 @@ repositories {
 
     jcenter()
 
+    maven("https://hub.spigotmc.org/nexus/content/groups/public/")
     maven("https://maven.pkg.github.com/hyrendev/nexus/") {
         credentials {
             username = System.getenv("MAVEN_USERNAME")
@@ -28,8 +29,6 @@ tasks {
     }
 
     shadowJar {
-        val fileName = "${project.name}.jar"
-
         archiveFileName.set("${project.name}.jar")
     }
 }
