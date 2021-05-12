@@ -1,6 +1,5 @@
 package net.hyren.proxy.listeners.connection
 
-import net.hyren.core.shared.CoreConstants
 import net.hyren.core.shared.CoreProvider
 import net.hyren.core.shared.misc.preferences.PREMIUM_ACCOUNT
 import net.hyren.core.shared.misc.preferences.PreferenceState
@@ -21,7 +20,11 @@ class PreLoginListener : Listener {
         val name = connection.name
         val user = CoreProvider.Cache.Local.USERS.provide().fetchByName(name)
 
-        println(CoreConstants.GSON.toJson(user))
+        println(user?.id)
+        println(user?.name)
+        println(user?.name)
+
+        println(user == null)
 
         connection.isOnlineMode = user?.getPreferences()?.find { it == PREMIUM_ACCOUNT }?.preferenceState == PreferenceState.ENABLED
     }
