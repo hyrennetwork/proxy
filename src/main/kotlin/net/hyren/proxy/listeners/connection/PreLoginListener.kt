@@ -20,6 +20,8 @@ class PreLoginListener : Listener {
         val name = connection.name
         val user = CoreProvider.Cache.Local.USERS.provide().fetchByName(name)
 
+        println(user)
+
         connection.isOnlineMode = user?.getPreferences()?.find { it == PREMIUM_ACCOUNT }?.preferenceState == PreferenceState.ENABLED
     }
 
