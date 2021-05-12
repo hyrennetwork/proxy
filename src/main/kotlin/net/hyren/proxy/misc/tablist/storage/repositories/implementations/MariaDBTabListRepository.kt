@@ -10,7 +10,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 /**
  * @author Gutyerrez
  */
-class PostgresTabListRepository : ITabListRepository {
+class MariaDBTabListRepository : ITabListRepository {
 
     override fun fetch(): TabList? {
         return transaction {
