@@ -39,7 +39,7 @@ class AccountChangeEmailCommand : CustomCommand("email") {
 
         targetUser.email = email
 
-        CoreProvider.Repositories.Postgres.USERS_REPOSITORY.provide().update(
+        CoreProvider.Repositories.MariaDB.USERS_REPOSITORY.provide().update(
             UpdateUserByIdDTO(
                 targetUser.id
             ) {

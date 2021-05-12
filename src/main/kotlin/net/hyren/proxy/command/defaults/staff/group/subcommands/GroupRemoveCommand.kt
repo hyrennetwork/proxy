@@ -58,7 +58,7 @@ class GroupRemoveCommand : CustomCommand("remover") {
             return false
         }
 
-        if (CoreProvider.Repositories.Postgres.USERS_GROUPS_DUE_REPOSITORY.provide().delete(
+        if (CoreProvider.Repositories.MariaDB.USERS_GROUPS_DUE_REPOSITORY.provide().delete(
                 DeleteUserGroupDueDTO(
                         targetUser.id,
                         group.get(),

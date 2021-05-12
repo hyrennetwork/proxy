@@ -31,7 +31,7 @@ class UserPunishedEchoPacketListener : EchoListener {
         CoreProvider.Cache.Local.USERS_PUNISHMENTS.provide().invalidate(userId)
 
         if (proxiedPlayer !== null) {
-            CoreProvider.Repositories.Postgres.USERS_PUNISHMENTS_REPOSITORY.provide().update(
+            CoreProvider.Repositories.MariaDB.USERS_PUNISHMENTS_REPOSITORY.provide().update(
                 UpdateUserPunishmentByIdDTO(
                     id!!
                 ) {

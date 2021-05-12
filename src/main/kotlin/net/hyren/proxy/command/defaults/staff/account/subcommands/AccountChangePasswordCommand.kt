@@ -41,7 +41,7 @@ class AccountChangePasswordCommand : CustomCommand("senha") {
             args[1]
         )
 
-        CoreProvider.Repositories.Postgres.USERS_PASSWORDS_REPOSITORY.provide().create(
+        CoreProvider.Repositories.MariaDB.USERS_PASSWORDS_REPOSITORY.provide().create(
             CreateUserPasswordDTO(
                 targetUser.getUniqueId(),
                 password

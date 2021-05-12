@@ -40,7 +40,7 @@ class FriendDenyCommand : CustomCommand("negar") {
             return false
         }
 
-        CoreProvider.Repositories.Postgres.USERS_FRIENDS_REPOSITORY.provide().delete(
+        CoreProvider.Repositories.MariaDB.USERS_FRIENDS_REPOSITORY.provide().delete(
             DeleteFriendUserDTO(
                 targetUser.id,
                 user.id

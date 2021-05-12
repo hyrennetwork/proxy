@@ -121,7 +121,7 @@ class RevokeCommand : CustomCommand("revogar"), GroupCommandRestrictable {
                     return false
                 }
 
-                CoreProvider.Repositories.Postgres.USERS_PUNISHMENTS_REPOSITORY.provide().update(
+                CoreProvider.Repositories.MariaDB.USERS_PUNISHMENTS_REPOSITORY.provide().update(
                     UpdateUserPunishmentByIdDTO(
                         userPunishment.id
                     ) {

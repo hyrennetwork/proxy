@@ -33,7 +33,7 @@ class MaintenanceCommand : CustomCommand("manutenção"), GroupCommandRestrictab
             return false
         }
 
-        val currentState = CoreProvider.Repositories.Postgres.MAINTENANCE_REPOSITORY.provide().fetchByApplication(application)
+        val currentState = CoreProvider.Repositories.MariaDB.MAINTENANCE_REPOSITORY.provide().fetchByApplication(application)
         val newState = args[1].toBoolean()
 
         if (currentState == newState) {
@@ -43,7 +43,7 @@ class MaintenanceCommand : CustomCommand("manutenção"), GroupCommandRestrictab
             return false
         }
 
-        CoreProvider.Repositories.Postgres.MAINTENANCE_REPOSITORY.provide().update(
+        CoreProvider.Repositories.MariaDB.MAINTENANCE_REPOSITORY.provide().update(
             application,
             newState
         )

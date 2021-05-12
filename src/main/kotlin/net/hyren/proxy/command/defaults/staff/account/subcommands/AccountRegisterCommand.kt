@@ -29,7 +29,7 @@ class AccountRegisterCommand : CustomCommand("registrar") {
 		args: Array<out String>
 	): Boolean {
 		val targetUser = CoreProvider.Cache.Local.USERS.provide().fetchByName(args[0])
-			?: CoreProvider.Repositories.Postgres.USERS_REPOSITORY.provide().create(
+			?: CoreProvider.Repositories.MariaDB.USERS_REPOSITORY.provide().create(
 				CreateUserDTO(
 					UUID.nameUUIDFromBytes(
 						"OfflinePlayer:${args[0]}".toByteArray(Charsets.UTF_8)
@@ -39,7 +39,7 @@ class AccountRegisterCommand : CustomCommand("registrar") {
 				)
 			)
 
-		if (CoreProvider.Repositories.Postgres.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
+		if (CoreProvider.Repositories.MariaDB.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
 				FetchUserPasswordByUserIdDTO(targetUser.getUniqueId())
 			).stream().anyMatch { it.enabled }
 		) {
@@ -49,7 +49,7 @@ class AccountRegisterCommand : CustomCommand("registrar") {
 			return false
 		}
 
-		CoreProvider.Repositories.Postgres.USERS_PASSWORDS_REPOSITORY.provide().create(
+		CoreProvider.Repositories.MariaDB.USERS_PASSWORDS_REPOSITORY.provide().create(
 			CreateUserPasswordDTO(
 				targetUser.getUniqueId(),
 				args[1]
