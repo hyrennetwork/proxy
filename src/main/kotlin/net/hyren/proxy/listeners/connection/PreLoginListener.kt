@@ -3,6 +3,7 @@ package net.hyren.proxy.listeners.connection
 import net.hyren.core.shared.CoreProvider
 import net.hyren.core.shared.misc.preferences.PREMIUM_ACCOUNT
 import net.hyren.core.shared.misc.preferences.PreferenceState
+import net.hyren.core.shared.users.storage.dto.UpdateUserByIdDTO
 import net.md_5.bungee.api.event.PreLoginEvent
 import net.md_5.bungee.api.plugin.Listener
 import net.md_5.bungee.event.EventHandler
@@ -20,15 +21,18 @@ class PreLoginListener : Listener {
         val name = connection.name
         val user = CoreProvider.Cache.Local.USERS.provide().fetchByName(name)
 
-        println(user?.getUniqueId())
-        println(user?.name)
-        println(user?.name)
-
-        println(user == null)
-
         connection.isOnlineMode = user?.getPreferences()?.find { it == PREMIUM_ACCOUNT }?.preferenceState == PreferenceState.ENABLED
 
-        println("OnlineMode: ${connection.isOnlineMode}")
+        // Check if is online mode and update last address
+        if (user !== null && connection.isOnlineMode) {
+            CoreProvider.Repositories.MariaDB.USERS_REPOSITORY.provide().update(
+                UpdateUserByIdDTO(
+                    user.id
+                ) {
+                    it.lastAddress = connection.address.address.hostAddress
+                }
+            )
+        }
     }
 
 }
