@@ -125,7 +125,8 @@ class ProxyPlugin : CustomPlugin() {
                     CoreProvider.application.applicationType,
                     CoreProvider.application.server,
                     CoreProvider.application.address,
-                    this.onlineSince
+                    this.onlineSince,
+                    BungeeCord.getInstance().connections.size
                 )
             ) {
                 override fun buildApplicationStatus(
@@ -136,7 +137,6 @@ class ProxyPlugin : CustomPlugin() {
                     applicationStatus.heapSize = runtime.totalMemory()
                     applicationStatus.heapMaxSize = runtime.maxMemory()
                     applicationStatus.heapFreeSize = runtime.freeMemory()
-                    applicationStatus.onlinePlayers = BungeeCord.getInstance().connections.size
                 }
             },
             0,
