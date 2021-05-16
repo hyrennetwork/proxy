@@ -43,6 +43,8 @@ class ProxyPlugin : CustomPlugin() {
     private var onlineSince = 0L
 
     override fun onEnable() {
+        ProxyServer.getInstance().logger.info("Starting Proxy Server...")
+
         super.onEnable()
 
         ProxyProvider.prepare()
@@ -145,6 +147,8 @@ class ProxyPlugin : CustomPlugin() {
             1,
             TimeUnit.SECONDS
         )
+
+        ProxyServer.getInstance().logger.info("Proxy Server started!")
     }
 
 }
