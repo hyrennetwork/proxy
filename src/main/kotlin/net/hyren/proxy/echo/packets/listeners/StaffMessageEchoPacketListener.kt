@@ -1,7 +1,7 @@
 package net.hyren.proxy.echo.packets.listeners
 
 import net.hyren.core.shared.CoreProvider
-import net.hyren.core.shared.echo.api.listener.EchoListener
+import net.hyren.core.shared.echo.api.listener.EchoPacketListener
 import net.hyren.core.shared.echo.packets.StaffMessagePacket
 import net.hyren.core.shared.groups.Group
 import net.md_5.bungee.api.ProxyServer
@@ -12,7 +12,7 @@ import java.util.stream.Collectors
 /**
  * @author Gutyerrez
  */
-class StaffMessageEchoPacketListener : EchoListener {
+class StaffMessageEchoPacketListener : EchoPacketListener {
 
     @Subscribe
     fun on(

@@ -1,7 +1,7 @@
 package net.hyren.proxy.echo.packets.listeners
 
 import net.hyren.core.shared.CoreProvider
-import net.hyren.core.shared.echo.api.listener.EchoListener
+import net.hyren.core.shared.echo.api.listener.EchoPacketListener
 import net.hyren.proxy.echo.packets.TellPacket
 import net.md_5.bungee.api.ProxyServer
 import net.md_5.bungee.api.chat.ClickEvent
@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.Subscribe
 /**
  * @author Gutyerrez
  */
-class TellEchoPacketListener : EchoListener {
+class TellEchoPacketListener : EchoPacketListener {
 
     @Subscribe
     fun on(
