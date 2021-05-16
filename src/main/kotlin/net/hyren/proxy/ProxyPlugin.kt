@@ -45,110 +45,92 @@ class ProxyPlugin : CustomPlugin() {
     override fun onEnable() {
         ProxyServer.getInstance().logger.info("Starting Proxy Server...")
 
-        super.onEnable()
+        try {
+            super.onEnable()
 
-        ProxyProvider.prepare()
+            ProxyProvider.prepare()
 
-        this.onlineSince = System.currentTimeMillis()
-
-        val pluginManager = ProxyServer.getInstance().pluginManager
-
-        /**
-         * Miscellaneous
-         */
-
-        pluginManager.registerCommand(this, AccountCommand())
-        pluginManager.registerCommand(this, GroupCommand())
-        pluginManager.registerCommand(this, ServerCommand())
-        pluginManager.registerCommand(this, AnnounceCommand())
-        pluginManager.registerCommand(this, BTPCommand())
-        pluginManager.registerCommand(this, FindCommand())
-        pluginManager.registerCommand(this, KickCommand())
-        pluginManager.registerCommand(this, SendCommand())
-        pluginManager.registerCommand(this, StaffChatCommand())
-        pluginManager.registerCommand(this, StaffListCommand())
-        pluginManager.registerCommand(this, LobbyCommand())
-        pluginManager.registerCommand(this, OnlineCommand())
-        pluginManager.registerCommand(this, ReplyCommand())
-        pluginManager.registerCommand(this, TellCommand())
-
-        /**
-         * Punish
-         */
-
-        pluginManager.registerCommand(this, PunishCommand())
-        pluginManager.registerCommand(this, RevokeCommand())
-        pluginManager.registerCommand(this, CheckPunishCommand())
-
-        /**
-         * Maintenance
-         */
-
-        pluginManager.registerCommand(this, MaintenanceCommand())
-
-        /**
-         * Preferences
-         */
-
-        PreferenceRegistry.register(
-            LOBBY_COMMAND_PROTECTION
-        )
-
-        /**
-         * Listeners
-         */
-
-        pluginManager.registerListener(PunishListener())
-        pluginManager.registerListener(LoginListeners())
-        pluginManager.registerListener(PreLoginListener())
-        pluginManager.registerListener(PostLoginListener())
-        pluginManager.registerListener(TabListPostLoginListener())
-
-        /**
-         * ECHO
-         */
-
-        CoreProvider.Databases.Redis.ECHO.provide().registerListener(TellEchoPacketListener())
-        CoreProvider.Databases.Redis.ECHO.provide().registerListener(StaffMessageEchoPacketListener())
-        CoreProvider.Databases.Redis.ECHO.provide().registerListener(BroadCastMessageEchoPacketListener())
-        CoreProvider.Databases.Redis.ECHO.provide().registerListener(DisconnectUserEchoPacketListener())
-        CoreProvider.Databases.Redis.ECHO.provide().registerListener(UserPunishedEchoPacketListener())
-        CoreProvider.Databases.Redis.ECHO.provide().registerListener(UserUnPunishedEchoPacketListener())
-        CoreProvider.Databases.Redis.ECHO.provide().registerListener(UserPreferencesUpdatedEchoPacketListener())
-
-        /**
-         * Status
-         */
-
-        AsyncScheduler.scheduleAsyncRepeatingTask(
-            object : ApplicationStatusTask(
-                ApplicationStatus(
-                    CoreProvider.application.name,
-                    CoreProvider.application.applicationType,
-                    CoreProvider.application.server,
-                    CoreProvider.application.address,
-                    this.onlineSince
-                )
-            ) {
-                override fun buildApplicationStatus(
-                    applicationStatus: ApplicationStatus
+            this.onlineSince = System.currentTimeMillis()
+            val pluginManager = ProxyServer.getInstance().pluginManager
+            /**
+             * Miscellaneous
+             */
+            pluginManager.registerCommand(this, AccountCommand())
+            pluginManager.registerCommand(this, GroupCommand())
+            pluginManager.registerCommand(this, ServerCommand())
+            pluginManager.registerCommand(this, AnnounceCommand())
+            pluginManager.registerCommand(this, BTPCommand())
+            pluginManager.registerCommand(this, FindCommand())
+            pluginManager.registerCommand(this, KickCommand())
+            pluginManager.registerCommand(this, SendCommand())
+            pluginManager.registerCommand(this, StaffChatCommand())
+            pluginManager.registerCommand(this, StaffListCommand())
+            pluginManager.registerCommand(this, LobbyCommand())
+            pluginManager.registerCommand(this, OnlineCommand())
+            pluginManager.registerCommand(this, ReplyCommand())
+            pluginManager.registerCommand(this, TellCommand())
+            /**
+             * Punish
+             */
+            pluginManager.registerCommand(this, PunishCommand())
+            pluginManager.registerCommand(this, RevokeCommand())
+            pluginManager.registerCommand(this, CheckPunishCommand())
+            /**
+             * Maintenance
+             */
+            pluginManager.registerCommand(this, MaintenanceCommand())
+            /**
+             * Preferences
+             */
+            PreferenceRegistry.register(
+                LOBBY_COMMAND_PROTECTION
+            )
+            /**
+             * Listeners
+             */
+            pluginManager.registerListener(PunishListener())
+            pluginManager.registerListener(LoginListeners())
+            pluginManager.registerListener(PreLoginListener())
+            pluginManager.registerListener(PostLoginListener())
+            pluginManager.registerListener(TabListPostLoginListener())
+            /**
+             * ECHO
+             */
+            CoreProvider.Databases.Redis.ECHO.provide().registerListener(TellEchoPacketListener())
+            CoreProvider.Databases.Redis.ECHO.provide().registerListener(StaffMessageEchoPacketListener())
+            CoreProvider.Databases.Redis.ECHO.provide().registerListener(BroadCastMessageEchoPacketListener())
+            CoreProvider.Databases.Redis.ECHO.provide().registerListener(DisconnectUserEchoPacketListener())
+            CoreProvider.Databases.Redis.ECHO.provide().registerListener(UserPunishedEchoPacketListener())
+            CoreProvider.Databases.Redis.ECHO.provide().registerListener(UserUnPunishedEchoPacketListener())
+            CoreProvider.Databases.Redis.ECHO.provide().registerListener(UserPreferencesUpdatedEchoPacketListener())
+            /**
+             * Status
+             */
+            AsyncScheduler.scheduleAsyncRepeatingTask(
+                object : ApplicationStatusTask(
+                    ApplicationStatus(
+                        CoreProvider.application.name, CoreProvider.application.applicationType, CoreProvider.application.server, CoreProvider.application.address, this.onlineSince
+                    )
                 ) {
-                    println("AAA")
+                    override fun buildApplicationStatus(
+                        applicationStatus: ApplicationStatus
+                    ) {
+                        println("AAA")
+                        val runtime = Runtime.getRuntime()
 
-                    val runtime = Runtime.getRuntime()
+                        applicationStatus.heapSize = runtime.totalMemory()
+                        applicationStatus.heapMaxSize = runtime.maxMemory()
+                        applicationStatus.heapFreeSize = runtime.freeMemory()
+                        applicationStatus.onlinePlayers = BungeeCord.getInstance().connections.size
+                    }
+                }, 0, 1, TimeUnit.SECONDS
+            )
 
-                    applicationStatus.heapSize = runtime.totalMemory()
-                    applicationStatus.heapMaxSize = runtime.maxMemory()
-                    applicationStatus.heapFreeSize = runtime.freeMemory()
-                    applicationStatus.onlinePlayers = BungeeCord.getInstance().connections.size
-                }
-            },
-            0,
-            1,
-            TimeUnit.SECONDS
-        )
+            ProxyServer.getInstance().logger.info("Proxy Server started!")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
-        ProxyServer.getInstance().logger.info("Proxy Server started!")
     }
 
 }
