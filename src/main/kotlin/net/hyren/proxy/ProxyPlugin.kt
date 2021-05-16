@@ -131,6 +131,8 @@ class ProxyPlugin : CustomPlugin() {
                 override fun buildApplicationStatus(
                     applicationStatus: ApplicationStatus
                 ) {
+                    println("AAA")
+
                     val runtime = Runtime.getRuntime()
 
                     applicationStatus.heapSize = runtime.totalMemory()
