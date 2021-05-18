@@ -18,7 +18,7 @@ class TabListPostLoginListener : Listener {
     ) {
         val player = event.player
 
-        val tabList = ProxyProvider.Repositories.MariaDB.TAB_LIST_REPOSITORY.provide().fetch() ?: return
+        val tabList = ProxyProvider.Repositories.PostgreSQL.TAB_LIST_REPOSITORY.provide().fetch() ?: return
 
         val packet = PlayerListHeaderFooter(
             ComponentSerializer.toString(tabList.header),
