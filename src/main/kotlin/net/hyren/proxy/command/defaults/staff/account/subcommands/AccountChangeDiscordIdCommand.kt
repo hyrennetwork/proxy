@@ -54,7 +54,7 @@ class AccountChangeDiscordIdCommand : CustomCommand("discord") {
 
         targetUser.discordId = discordId
 
-        CoreProvider.Repositories.MariaDB.USERS_REPOSITORY.provide().update(
+        CoreProvider.Repositories.PostgreSQL.USERS_REPOSITORY.provide().update(
             UpdateUserByIdDTO(
                 targetUser.id
             ) {

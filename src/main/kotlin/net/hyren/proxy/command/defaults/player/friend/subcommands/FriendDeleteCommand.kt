@@ -70,14 +70,14 @@ class FriendDeleteCommand : CustomCommand("excluir") {
                     return false
                 }
 
-                CoreProvider.Repositories.MariaDB.USERS_FRIENDS_REPOSITORY.provide().delete(
+                CoreProvider.Repositories.PostgreSQL.USERS_FRIENDS_REPOSITORY.provide().delete(
                     DeleteFriendUserDTO(
                         targetUser.id,
                         user.id
                     )
                 )
 
-                CoreProvider.Repositories.MariaDB.USERS_FRIENDS_REPOSITORY.provide().delete(
+                CoreProvider.Repositories.PostgreSQL.USERS_FRIENDS_REPOSITORY.provide().delete(
                     DeleteFriendUserDTO(
                         user.id,
                         targetUser.id
@@ -102,13 +102,13 @@ class FriendDeleteCommand : CustomCommand("excluir") {
             2 -> {
                 return if (args[0] == "todos" && args[1] == "confirmar") {
                     user!!.getFriends().forEach {
-                        CoreProvider.Repositories.MariaDB.USERS_FRIENDS_REPOSITORY.provide().delete(
+                        CoreProvider.Repositories.PostgreSQL.USERS_FRIENDS_REPOSITORY.provide().delete(
                             DeleteFriendUserDTO(
                                 user.id,
                                 it.id
                             )
                         )
-                        CoreProvider.Repositories.MariaDB.USERS_FRIENDS_REPOSITORY.provide().delete(
+                        CoreProvider.Repositories.PostgreSQL.USERS_FRIENDS_REPOSITORY.provide().delete(
                             DeleteFriendUserDTO(
                                 it.id,
                                 user.id

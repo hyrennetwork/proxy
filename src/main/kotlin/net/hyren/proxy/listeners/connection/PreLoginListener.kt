@@ -25,7 +25,7 @@ class PreLoginListener : Listener {
 
         // Check if is online mode and update last address
         if (user !== null && connection.isOnlineMode) {
-            CoreProvider.Repositories.MariaDB.USERS_REPOSITORY.provide().update(
+            CoreProvider.Repositories.PostgreSQL.USERS_REPOSITORY.provide().update(
                 UpdateUserByIdDTO(
                     user.id
                 ) {

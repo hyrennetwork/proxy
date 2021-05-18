@@ -39,7 +39,7 @@ class IgnoreAddCommand : CustomCommand("add") {
             return false
         }
 
-        CoreProvider.Repositories.MariaDB.IGNORED_USERS_REPOSITORY.provide().create(
+        CoreProvider.Repositories.PostgreSQL.IGNORED_USERS_REPOSITORY.provide().create(
             CreateIgnoredUserDTO(
                 IgnoredUser(
                     user!!.id,

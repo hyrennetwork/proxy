@@ -59,7 +59,7 @@ class FriendAddCommand : CustomCommand("adicionar") {
                 false
             }
             targetUser.getFriends().contains(user) -> {
-                CoreProvider.Repositories.MariaDB.USERS_FRIENDS_REPOSITORY.provide().create(
+                CoreProvider.Repositories.PostgreSQL.USERS_FRIENDS_REPOSITORY.provide().create(
                     CreateFriendUserDTO(
                         FriendUser(
                             user.id,
@@ -99,7 +99,7 @@ class FriendAddCommand : CustomCommand("adicionar") {
                 false
             }
             else -> {
-                CoreProvider.Repositories.MariaDB.USERS_FRIENDS_REPOSITORY.provide().create(
+                CoreProvider.Repositories.PostgreSQL.USERS_FRIENDS_REPOSITORY.provide().create(
                     CreateFriendUserDTO(
                         FriendUser(
                             user.id,

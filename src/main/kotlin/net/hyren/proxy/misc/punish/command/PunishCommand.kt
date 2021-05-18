@@ -153,7 +153,7 @@ class PunishCommand : CustomCommand("punir"), GroupCommandRestrictable {
                     if (punishCategory.punishDurations.size <= userPunishments.size + 1) punishCategory.punishDurations.size - 1 else userPunishments.size
                 ]
 
-                val userPunishment = CoreProvider.Repositories.MariaDB.USERS_PUNISHMENTS_REPOSITORY.provide().create(
+                val userPunishment = CoreProvider.Repositories.PostgreSQL.USERS_PUNISHMENTS_REPOSITORY.provide().create(
                     CreateUserPunishmentDTO(
                         targetUser.id,
                         user.id,

@@ -50,7 +50,7 @@ class FriendCancelCommand : CustomCommand("cancelar") {
             return false
         }
 
-        CoreProvider.Repositories.MariaDB.USERS_FRIENDS_REPOSITORY.provide().delete(
+        CoreProvider.Repositories.PostgreSQL.USERS_FRIENDS_REPOSITORY.provide().delete(
             DeleteFriendUserDTO(
                 user.id,
                 targetUser.id

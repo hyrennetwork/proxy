@@ -43,7 +43,7 @@ class IgnoreRemoveCommand : CustomCommand("remover") {
             return false
         }
 
-        CoreProvider.Repositories.MariaDB.IGNORED_USERS_REPOSITORY.provide().delete(
+        CoreProvider.Repositories.PostgreSQL.IGNORED_USERS_REPOSITORY.provide().delete(
             DeleteIgnoredUserDTO(
                 user.id,
                 ignoredUser.id

@@ -30,7 +30,7 @@ class LoginListeners : Listener {
 
             user.lastAddress = (proxiedPlayer.pendingConnection.socketAddress as InetSocketAddress).address.hostAddress
 
-            CoreProvider.Repositories.MariaDB.USERS_REPOSITORY.provide().update(
+            CoreProvider.Repositories.PostgreSQL.USERS_REPOSITORY.provide().update(
                 UpdateUserByIdDTO(
                     user.id
                 ) {

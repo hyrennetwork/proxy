@@ -51,7 +51,7 @@ class FriendAcceptCommand : CustomCommand("aceitar") {
             return false
         }
 
-        CoreProvider.Repositories.MariaDB.USERS_FRIENDS_REPOSITORY.provide().create(
+        CoreProvider.Repositories.PostgreSQL.USERS_FRIENDS_REPOSITORY.provide().create(
             CreateFriendUserDTO(
                 FriendUser(
                     user!!.id,

@@ -57,7 +57,7 @@ class GroupAddCommand : CustomCommand("adicionar") {
             return false
         }
 
-        CoreProvider.Repositories.MariaDB.USERS_GROUPS_DUE_REPOSITORY.provide().create(
+        CoreProvider.Repositories.PostgreSQL.USERS_GROUPS_DUE_REPOSITORY.provide().create(
                 CreateUserGroupDueDTO(
                         targetUser.id,
                         group.get(),
