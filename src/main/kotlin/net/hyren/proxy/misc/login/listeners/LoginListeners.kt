@@ -21,12 +21,11 @@ class LoginListeners : Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     fun on(event: PostLoginEvent) {
         val proxiedPlayer = event.player
-        val connection = proxiedPlayer.pendingConnection
 
         val user = CoreProvider.Cache.Local.USERS.provide().fetchById(proxiedPlayer.uniqueId)
 
         if (user !== null) {
-            user.setLogged(connection.isOnlineMode)
+            user.setLogged(false)
 
             user.lastAddress = (proxiedPlayer.pendingConnection.socketAddress as InetSocketAddress).address.hostAddress
 

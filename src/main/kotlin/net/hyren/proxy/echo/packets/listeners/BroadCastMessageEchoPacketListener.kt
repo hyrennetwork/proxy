@@ -14,7 +14,9 @@ class BroadCastMessageEchoPacketListener : EchoPacketListener {
     fun on(
         packet: BroadcastMessagePacket
     ) {
-        ProxyServer.getInstance().broadcast(*packet.message!!)
+        ProxyServer.getInstance().players.forEach {
+            it.sendMessage(*packet.message!!)
+        }
     }
 
 }

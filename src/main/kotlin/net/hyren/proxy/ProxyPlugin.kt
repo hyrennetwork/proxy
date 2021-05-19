@@ -21,7 +21,6 @@ import net.hyren.proxy.echo.packets.listeners.DisconnectUserEchoPacketListener
 import net.hyren.proxy.echo.packets.listeners.StaffMessageEchoPacketListener
 import net.hyren.proxy.echo.packets.listeners.TellEchoPacketListener
 import net.hyren.proxy.listeners.connection.PostLoginListener
-import net.hyren.proxy.listeners.connection.PreLoginListener
 import net.hyren.proxy.misc.login.listeners.LoginListeners
 import net.hyren.proxy.misc.maintenance.command.MaintenanceCommand
 import net.hyren.proxy.misc.punish.command.CheckPunishCommand
@@ -90,7 +89,6 @@ class ProxyPlugin : CustomPlugin() {
              */
             pluginManager.registerListener(PunishListener())
             pluginManager.registerListener(LoginListeners())
-            pluginManager.registerListener(PreLoginListener())
             pluginManager.registerListener(PostLoginListener())
             pluginManager.registerListener(TabListPostLoginListener())
             /**
