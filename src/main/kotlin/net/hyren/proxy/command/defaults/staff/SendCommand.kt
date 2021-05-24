@@ -62,11 +62,9 @@ class SendCommand : CustomCommand("send"), GroupCommandRestrictable {
             bukkitApplication
         )
 
-        CoreProvider.Databases.Redis.ECHO.provide().publishToApplications(
+        CoreProvider.Databases.Redis.ECHO.provide().publishToApplicationType(
             packet,
-            CoreProvider.Cache.Local.APPLICATIONS.provide().fetchByApplicationType(
-                ApplicationType.PROXY
-            )
+            ApplicationType.PROXY
         )
 
         commandSender.sendMessage(TextComponent("§eVocê enviou o usuário ${user.name} para a aplicação ${bukkitApplication?.server?.displayName ?: bukkitApplication?.name ?: "desconhecida"}."))
