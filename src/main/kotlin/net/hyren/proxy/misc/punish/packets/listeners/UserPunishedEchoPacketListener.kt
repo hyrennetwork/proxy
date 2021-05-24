@@ -35,7 +35,7 @@ class UserPunishedEchoPacketListener : EchoListener {
                 UpdateUserPunishmentByIdDTO(
                     id!!
                 ) {
-                    it.startTime = DateTime.now(
+                    this.startTime = DateTime.now(
                         CoreConstants.DATE_TIME_ZONE
                     )
                 }

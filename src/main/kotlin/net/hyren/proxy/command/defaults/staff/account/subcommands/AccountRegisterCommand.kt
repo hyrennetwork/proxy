@@ -51,7 +51,7 @@ class AccountRegisterCommand : CustomCommand("registrar") {
 
 		CoreProvider.Repositories.PostgreSQL.USERS_PASSWORDS_REPOSITORY.provide().create(
 			CreateUserPasswordDTO(
-				targetUser.getUniqueId(),
+				targetUser.id,
 				args[1]
 			)
 		)

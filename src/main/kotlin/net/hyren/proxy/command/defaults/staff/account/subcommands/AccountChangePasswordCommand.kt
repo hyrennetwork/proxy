@@ -43,7 +43,7 @@ class AccountChangePasswordCommand : CustomCommand("senha") {
 
         CoreProvider.Repositories.PostgreSQL.USERS_PASSWORDS_REPOSITORY.provide().create(
             CreateUserPasswordDTO(
-                targetUser.getUniqueId(),
+                targetUser.id,
                 password
             )
         )

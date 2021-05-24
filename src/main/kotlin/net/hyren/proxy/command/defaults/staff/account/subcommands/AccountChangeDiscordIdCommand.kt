@@ -58,7 +58,7 @@ class AccountChangeDiscordIdCommand : CustomCommand("discord") {
             UpdateUserByIdDTO(
                 targetUser.id
             ) {
-                it.discordId = discordId
+                this.discordId = discordId
             }
         )
 

@@ -43,7 +43,7 @@ class AccountChangeEmailCommand : CustomCommand("email") {
             UpdateUserByIdDTO(
                 targetUser.id
             ) {
-                it.email = email
+                this.email = email
             }
         )
 

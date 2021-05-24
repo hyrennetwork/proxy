@@ -33,7 +33,7 @@ class LoginListeners : Listener {
                 UpdateUserByIdDTO(
                     user.id
                 ) {
-                    it.lastAddress = user.lastAddress
+                    this.lastAddress = user.lastAddress
                 }
             )
         }
