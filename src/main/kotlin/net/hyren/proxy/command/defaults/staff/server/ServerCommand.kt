@@ -41,7 +41,7 @@ class ServerCommand : CustomCommand("server"), GroupCommandRestrictable {
         servers.forEach {
             val onlineUsers = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByServer(it)
 
-            message.append("$color ${it.displayName} §7(${onlineUsers.size} jogadores)")
+            message.append("$color ${it.getFancyDisplayName()} §7(${onlineUsers.size} jogadores)")
                 .event(ClickEvent(
                     ClickEvent.Action.RUN_COMMAND,
                     "/server conectar ${it.getName()}"
