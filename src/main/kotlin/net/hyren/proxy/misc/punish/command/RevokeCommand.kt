@@ -125,9 +125,9 @@ class RevokeCommand : CustomCommand("revogar"), GroupCommandRestrictable {
                     UpdateUserPunishmentByIdDTO(
                         userPunishment.id
                     ) {
-                        it.revokeStafferId = user.id
-                        it.revokeTime = DateTime.now()
-                        it.revokeCategory = revokeCategory.name
+                        this.revokeStafferId = user.id
+                        this.revokeTime = DateTime.now()
+                        this.revokeCategory = revokeCategory.name
                     }
                 )
 
