@@ -3,6 +3,7 @@ package net.hyren.proxy.command.defaults.staff
 import net.hyren.core.bungee.command.CustomCommand
 import net.hyren.core.shared.CoreProvider
 import net.hyren.core.shared.applications.ApplicationType
+import net.hyren.core.shared.applications.status.ApplicationStatus
 import net.hyren.core.shared.commands.argument.Argument
 import net.hyren.core.shared.commands.restriction.CommandRestriction
 import net.hyren.core.shared.commands.restriction.entities.implementations.GroupCommandRestrictable
@@ -54,6 +55,15 @@ class SendCommand : CustomCommand("send"), GroupCommandRestrictable {
 
         if (bukkitApplication === null) {
             commandSender.sendMessage(TextComponent("§cEsta aplicação não existe."))
+            return false
+        }
+
+        if (CoreProvider.Cache.Redis.APPLICATIONS_STATUS.provide().fetchApplicationStatusByApplication(
+                bukkitApplication,
+                ApplicationStatus::class
+            ) == null
+        ) {
+            commandSender.sendMessage(TextComponent("§cEsta aplicação não está ligada."))
             return false
         }
 
