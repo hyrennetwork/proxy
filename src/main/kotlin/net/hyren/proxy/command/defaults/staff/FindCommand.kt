@@ -6,12 +6,10 @@ import net.hyren.core.shared.commands.argument.Argument
 import net.hyren.core.shared.commands.restriction.CommandRestriction
 import net.hyren.core.shared.commands.restriction.entities.implementations.GroupCommandRestrictable
 import net.hyren.core.shared.groups.Group
-import net.hyren.core.shared.misc.utils.ChatColor
-import net.hyren.core.shared.misc.utils.DateFormatter
-import net.hyren.core.shared.misc.utils.DefaultMessage
+import net.hyren.core.shared.misc.utils.*
 import net.hyren.core.shared.users.data.User
 import net.md_5.bungee.api.CommandSender
-import net.md_5.bungee.api.chat.ComponentBuilder
+import net.md_5.bungee.api.chat.*
 import java.util.stream.Collectors
 
 /**
@@ -41,7 +39,12 @@ class FindCommand : CustomCommand("find"), GroupCommandRestrictable {
             return false
         }
 
-        val color = if (targetUser.isOnline()) ChatColor.GREEN else ChatColor.RED
+        val color = if (targetUser.isOnline()) {
+            ChatColor.GREEN
+        } else {
+            ChatColor.RED
+        }
+
         val address = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchConnectedAddress(targetUser)
         val punishments = CoreProvider.Cache.Local.USERS_PUNISHMENTS.provide().fetchByUserId(targetUser.id)
 
@@ -52,6 +55,12 @@ class FindCommand : CustomCommand("find"), GroupCommandRestrictable {
             .append(" ${color}Informações básicas")
             .append("\n\n")
             .append("   §fId: §7${targetUser.getUniqueId()}")
+            .event(
+                ClickEvent(
+                    ClickEvent.Action.SUGGEST_COMMAND,
+                    targetUser.getUniqueId().toString()
+                )
+            )
             .append("\n")
             .append("   §fData de registro: §7${DateFormatter.formatToDefault(targetUser.createdAt)}")
             .append("\n")
