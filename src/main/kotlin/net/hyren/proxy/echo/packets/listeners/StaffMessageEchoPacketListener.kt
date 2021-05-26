@@ -20,8 +20,6 @@ class StaffMessageEchoPacketListener : EchoPacketListener {
     ) {
         val bukkitApplication = packet.bukkitApplication
 
-        println("Test")
-
         val staffers = ProxyServer.getInstance().players.stream()
             .filter {
                 val user = CoreProvider.Cache.Local.USERS.provide().fetchById(it.uniqueId)
@@ -29,11 +27,7 @@ class StaffMessageEchoPacketListener : EchoPacketListener {
                 user !== null && user.isLogged() && user.hasGroup(Group.HELPER)
             }.toList()
 
-        println("ASD")
-
         val user = CoreProvider.Cache.Local.USERS.provide().fetchById(packet.stafferId!!)
-
-        println("A")
 
         val group = user!!.getHighestGroup()
 

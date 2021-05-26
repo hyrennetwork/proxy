@@ -7,17 +7,14 @@ import net.hyren.core.shared.commands.argument.Argument
 import net.hyren.core.shared.commands.restriction.CommandRestriction
 import net.hyren.core.shared.commands.restriction.entities.implementations.GroupCommandRestrictable
 import net.hyren.core.shared.groups.Group
+import net.hyren.core.shared.misc.kotlin.isInt
 import net.hyren.core.shared.misc.utils.ChatColor
-import net.hyren.core.shared.misc.utils.NumberUtils
 import net.hyren.core.shared.users.data.User
 import net.hyren.core.shared.users.punishments.storage.dto.UpdateUserPunishmentByIdDTO
 import net.hyren.core.shared.users.punishments.storage.table.UsersPunishmentsTable
 import net.hyren.proxy.misc.punish.packets.UserUnPunishedPacket
 import net.md_5.bungee.api.CommandSender
-import net.md_5.bungee.api.chat.ClickEvent
-import net.md_5.bungee.api.chat.ComponentBuilder
-import net.md_5.bungee.api.chat.HoverEvent
-import net.md_5.bungee.api.chat.TextComponent
+import net.md_5.bungee.api.chat.*
 import net.md_5.bungee.api.chat.hover.content.Text
 import org.jetbrains.exposed.dao.id.EntityID
 import org.joda.time.DateTime
@@ -42,13 +39,16 @@ class RevokeCommand : CustomCommand("revogar"), GroupCommandRestrictable {
         user: User?,
         args: Array<out String>
     ): Boolean {
-        if (!NumberUtils.isValidInteger(args[0])) {
+        if (!args[0].isInt()) {
             commandSender.sendMessage(TextComponent("§cVocê informou um id inválido."))
             return false
         }
 
         val userPunishment = CoreProvider.Cache.Local.USERS_PUNISHMENTS.provide().fetchById(
-            EntityID(args[0].toIntOrNull() ?: 0, UsersPunishmentsTable)
+            EntityID(
+                args[0].toInt(),
+                UsersPunishmentsTable
+            )
         )
 
         if (userPunishment === null) {
@@ -91,7 +91,7 @@ class RevokeCommand : CustomCommand("revogar"), GroupCommandRestrictable {
                         .event(
                             ClickEvent(
                                 ClickEvent.Action.SUGGEST_COMMAND,
-                                "/${this.name} ${args[0]} ${it.name}"
+                                "/${getNameExact()} ${args[0]} ${it.name}"
                             )
                         )
 
@@ -161,6 +161,7 @@ class RevokeCommand : CustomCommand("revogar"), GroupCommandRestrictable {
                 return true
             }
             else -> {
+                commandSender.sendMessage(*getUsage())
                 return false
             }
         }
