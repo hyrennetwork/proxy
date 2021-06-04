@@ -10,8 +10,6 @@ version = "0.1-ALPHA"
 repositories {
     mavenCentral()
 
-    jcenter()
-
     maven("https://hub.spigotmc.org/nexus/content/groups/public/")
     maven("http://135.148.58.224:8081/artifactory/releases/") {
         isAllowInsecureProtocol = true
