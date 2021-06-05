@@ -11,9 +11,7 @@ repositories {
     mavenCentral()
 
     maven("https://hub.spigotmc.org/nexus/content/groups/public/")
-    maven("http://135.148.58.224:8081/artifactory/releases/") {
-        isAllowInsecureProtocol = true
-
+    maven("https://repository.hyren.net/") {
         credentials {
             username = System.getenv("MAVEN_USERNAME")
             password = System.getenv("MAVEN_PASSWORD")
