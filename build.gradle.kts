@@ -10,7 +10,7 @@ version = "0.1-ALPHA"
 repositories {
     mavenCentral()
 
-    maven("https://hub.spigotmc.org/nexus/content/groups/public/")
+    maven("https://libraries.minecraft.net")
     maven("https://repository.hyren.net/") {
         credentials {
             username = System.getenv("MAVEN_USERNAME")
