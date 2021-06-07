@@ -1,9 +1,7 @@
 package net.hyren.proxy.command.defaults.staff.group.subcommands
 
-import com.google.common.base.Enums
 import net.hyren.core.bungee.command.CustomCommand
-import net.hyren.core.shared.CoreConstants
-import net.hyren.core.shared.CoreProvider
+import net.hyren.core.shared.*
 import net.hyren.core.shared.commands.argument.Argument
 import net.hyren.core.shared.echo.packets.UserGroupsUpdatedPacket
 import net.hyren.core.shared.groups.Group
@@ -14,6 +12,7 @@ import net.hyren.proxy.command.defaults.staff.group.GroupCommand
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.TextComponent
 import org.joda.time.DateTime
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
@@ -38,7 +37,7 @@ class GroupAddCommand : CustomCommand("adicionar") {
             args: Array<out String>
     ): Boolean {
         val targetUser = CoreProvider.Cache.Local.USERS.provide().fetchByName(args[0])
-        val group = Enums.getIfPresent(Group::class.java, args[1])
+        val group = EnumSet.allOf(Group::class.java).find { it.name == args[1] }
         val server = CoreProvider.Cache.Local.SERVERS.provide().fetchByName(args[2])
         val dueAt = DateTime.now() + TimeUnit.DAYS.toMillis(args[3].toLongOrNull() ?: 0)
 
@@ -47,12 +46,12 @@ class GroupAddCommand : CustomCommand("adicionar") {
             return false
         }
 
-        if (group === null || !group.isPresent) {
+        if (group == null) {
             commandSender.sendMessage(TextComponent("§cGrupo não localizado"))
             return false
         }
 
-        if ((user!!.getHighestGroup().priority!! <= group.get().priority!!) && !CoreConstants.WHITELISTED_USERS.contains(user.name)) {
+        if ((user!!.getHighestGroup().priority!! <= group.priority!!) && !CoreConstants.WHITELISTED_USERS.contains(user.name)) {
             commandSender.sendMessage(TextComponent("§cVocê não pode gerenciar este grupo."))
             return false
         }
@@ -60,7 +59,7 @@ class GroupAddCommand : CustomCommand("adicionar") {
         CoreProvider.Repositories.PostgreSQL.USERS_GROUPS_DUE_REPOSITORY.provide().create(
                 CreateUserGroupDueDTO(
                         targetUser.id,
-                        group.get(),
+                        group,
                         server,
                         dueAt
                 )
@@ -72,7 +71,7 @@ class GroupAddCommand : CustomCommand("adicionar") {
 
         CoreProvider.Databases.Redis.ECHO.provide().publishToAll(packet)
 
-        commandSender.sendMessage(TextComponent("§aVocê adicionou o grupo ${group.get().displayName}§a para o usuário ${targetUser.name}."))
+        commandSender.sendMessage(TextComponent("§aVocê adicionou o grupo ${group.displayName}§a para o usuário ${targetUser.name}."))
         return false
     }
 

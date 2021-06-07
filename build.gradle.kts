@@ -1,7 +1,5 @@
 plugins {
     kotlin("jvm") version "1.5.10"
-
-    id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
 group = "net.hyren"
@@ -26,7 +24,7 @@ tasks {
         }
     }
 
-    shadowJar {
+    jar {
         archiveFileName.set("${project.name}.jar")
     }
 }
@@ -35,8 +33,10 @@ dependencies {
     // kotlin
     compileOnly(kotlin("stdlib"))
 
-    // waterfall proxy
-    compileOnly("io.github.waterfallmc:waterfall-proxy:1.16-R0.5-SNAPSHOT")
+    // waterfall
+    compileOnly("io.github.waterfallmc:waterfall-api:1.16-R0.5-SNAPSHOT")
+    compileOnly("io.github.waterfallmc:waterfall-chat:1.16-R0.5-SNAPSHOT")
+    compileOnly("io.github.waterfallmc:waterfall-event:1.16-R0.5-SNAPSHOT")
 
     // exposed
     compileOnly("org.jetbrains.exposed:exposed-dao:0.31.1")

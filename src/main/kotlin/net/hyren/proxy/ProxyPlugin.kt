@@ -5,32 +5,21 @@ import net.hyren.core.shared.CoreProvider
 import net.hyren.core.shared.applications.status.ApplicationStatus
 import net.hyren.core.shared.applications.status.task.ApplicationStatusTask
 import net.hyren.core.shared.echo.packets.listener.UserPreferencesUpdatedEchoPacketListener
-import net.hyren.core.shared.misc.preferences.LOBBY_COMMAND_PROTECTION
-import net.hyren.core.shared.misc.preferences.PreferenceRegistry
+import net.hyren.core.shared.misc.preferences.*
 import net.hyren.core.shared.scheduler.AsyncScheduler
-import net.hyren.proxy.command.defaults.player.LobbyCommand
-import net.hyren.proxy.command.defaults.player.OnlineCommand
-import net.hyren.proxy.command.defaults.player.ReplyCommand
-import net.hyren.proxy.command.defaults.player.TellCommand
+import net.hyren.proxy.command.defaults.player.*
 import net.hyren.proxy.command.defaults.staff.*
 import net.hyren.proxy.command.defaults.staff.account.AccountCommand
 import net.hyren.proxy.command.defaults.staff.group.GroupCommand
 import net.hyren.proxy.command.defaults.staff.server.ServerCommand
-import net.hyren.proxy.echo.packets.listeners.BroadCastMessageEchoPacketListener
-import net.hyren.proxy.echo.packets.listeners.DisconnectUserEchoPacketListener
-import net.hyren.proxy.echo.packets.listeners.StaffMessageEchoPacketListener
-import net.hyren.proxy.echo.packets.listeners.TellEchoPacketListener
+import net.hyren.proxy.echo.packets.listeners.*
 import net.hyren.proxy.listeners.connection.PostLoginListener
 import net.hyren.proxy.misc.login.listeners.LoginListeners
 import net.hyren.proxy.misc.maintenance.command.MaintenanceCommand
-import net.hyren.proxy.misc.punish.command.CheckPunishCommand
-import net.hyren.proxy.misc.punish.command.PunishCommand
-import net.hyren.proxy.misc.punish.command.RevokeCommand
+import net.hyren.proxy.misc.punish.command.*
 import net.hyren.proxy.misc.punish.listener.PunishListener
-import net.hyren.proxy.misc.punish.packets.listeners.UserPunishedEchoPacketListener
-import net.hyren.proxy.misc.punish.packets.listeners.UserUnPunishedEchoPacketListener
+import net.hyren.proxy.misc.punish.packets.listeners.*
 import net.hyren.proxy.misc.tablist.listeners.TabListPostLoginListener
-import net.md_5.bungee.BungeeCord
 import net.md_5.bungee.api.ProxyServer
 import java.util.concurrent.TimeUnit
 
@@ -118,7 +107,7 @@ class ProxyPlugin : CustomPlugin() {
                         applicationStatus.heapSize = runtime.totalMemory()
                         applicationStatus.heapMaxSize = runtime.maxMemory()
                         applicationStatus.heapFreeSize = runtime.freeMemory()
-                        applicationStatus.onlinePlayers = BungeeCord.getInstance().connections.size
+                        applicationStatus.onlinePlayers = ProxyServer.getInstance().players.size
                     }
                 }, 0, 1, TimeUnit.SECONDS
             )
