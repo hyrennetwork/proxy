@@ -17,10 +17,9 @@ repositories {
 }
 
 tasks {
-
     compileKotlin {
         kotlinOptions {
-            languageVersion = "1.8"
+            jvmTarget = "1.8"
         }
     }
 
