@@ -9,7 +9,6 @@ import net.hyren.proxy.command.defaults.staff.account.AccountCommand
 class AccountChangeCommand : CustomCommand("mudar") {
 
     override fun getSubCommands() = listOf(
-        AccountChangePasswordCommand(),
         AccountChangeEmailCommand(),
         AccountChangeDiscordIdCommand()
     )
