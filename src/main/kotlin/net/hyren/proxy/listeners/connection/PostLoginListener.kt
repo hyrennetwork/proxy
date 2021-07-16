@@ -1,12 +1,15 @@
 package net.hyren.proxy.listeners.connection
 
+import net.hyren.core.shared.CoreConstants
 import net.hyren.core.shared.CoreProvider
 import net.hyren.core.shared.misc.skin.Skin
 import net.hyren.core.shared.misc.skin.controller.SkinController
+import net.hyren.core.shared.users.storage.dto.UpdateUserByIdDTO
 import net.md_5.bungee.api.event.PostLoginEvent
 import net.md_5.bungee.api.plugin.Listener
 import net.md_5.bungee.connection.LoginResult
 import net.md_5.bungee.event.EventHandler
+import org.joda.time.DateTime
 
 /**
  * @author Gutyerrez
@@ -21,6 +24,14 @@ class PostLoginListener : Listener {
 		val user = CoreProvider.Cache.Local.USERS.provide().fetchById(player.uniqueId)
 
 		val skin: Skin? = if (user !== null) {
+			CoreProvider.Repositories.PostgreSQL.USERS_REPOSITORY.provide().update(
+				UpdateUserByIdDTO(
+					user.id
+				) { lastLoginAt = DateTime.now(
+					CoreConstants.DATE_TIME_ZONE
+				) }
+			)
+
 			CoreProvider.Cache.Local.USERS_SKINS.provide().invalidate(user.id)
 
 			CoreProvider.Cache.Local.USERS_SKINS.provide().fetchByUserId(user.id)?.stream()
