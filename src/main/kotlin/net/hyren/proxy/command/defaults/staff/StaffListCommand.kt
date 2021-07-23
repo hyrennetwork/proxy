@@ -5,7 +5,7 @@ import net.hyren.core.shared.CoreProvider
 import net.hyren.core.shared.commands.restriction.CommandRestriction
 import net.hyren.core.shared.commands.restriction.entities.implementations.GroupCommandRestrictable
 import net.hyren.core.shared.groups.Group
-import net.hyren.core.shared.misc.utils.ChatColor
+import net.hyren.core.shared.misc.chat.plus
 import net.hyren.core.shared.users.data.User
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.ComponentBuilder
@@ -44,14 +44,13 @@ class StaffListCommand : CustomCommand("staff"), GroupCommandRestrictable {
 
         users.stream()
             .filter { it?.isLogged() == true }
-            .sorted { user1, user2 -> user2!!.getHighestGroup().priority!!.compareTo(user1!!.getHighestGroup().priority!!) }
+            .sorted { user1, user2 -> user2!!.getHighestGroup().priority.compareTo(user1!!.getHighestGroup().priority) }
             .forEach {
                 val highestGroup = it!!.getHighestGroup()
-                val prefix = "${ChatColor.fromHEX(highestGroup.color!!)}${highestGroup.prefix}"
                 val bukkitApplication = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchBukkitApplication(it)
 
                 message.append(
-                    "§f ${if (it == user) "*" else "-"} $prefix${it.name} §7(${bukkitApplication?.server?.getFancyDisplayName() ?: bukkitApplication?.getFancyDisplayName() ?: "Desconhecido"})"
+                    "§f ${if (it == user) "*" else "-"} ${highestGroup.prefix + it.name} §7(${bukkitApplication?.server?.getFancyDisplayName() ?: bukkitApplication?.getFancyDisplayName() ?: "Desconhecido"})"
                 ).append("\n")
             }
 
