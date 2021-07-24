@@ -25,13 +25,13 @@ class AccountChangeDiscordIdCommand : CustomCommand("discord") {
     override fun getParent() = AccountChangeCommand()
 
     override fun onCommand(
-            commandSender: CommandSender,
-            user: User?,
-            args: Array<out String>
+        commandSender: CommandSender,
+        user: User?,
+        args: Array<out String>
     ): Boolean {
         val targetUser = CoreProvider.Cache.Local.USERS.provide().fetchByName(args[0])
 
-        if (targetUser === null) {
+        if (targetUser == null) {
             commandSender.sendMessage(DefaultMessage.USER_NOT_FOUND)
             return false
         }
@@ -47,7 +47,7 @@ class AccountChangeDiscordIdCommand : CustomCommand("discord") {
             discordId
         )
 
-        if (discordUser !== null) {
+        if (discordUser != null) {
             commandSender.sendMessage(TextComponent("§cEste id de discord já está sendo utilizado."))
             return false
         }
