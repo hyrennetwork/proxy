@@ -31,7 +31,7 @@ class OnlineCommand : CustomCommand("online") {
             if (server !== null) {
                 val usersByServer = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByServer(server)
 
-                message.append("§eTotal de jogadores on-line neste servidor: §f${usersByServer.size}")
+                message.append("§9 * §eTotal de jogadores on-line neste servidor: §f${usersByServer.size}")
                     .append("\n")
             }
         }
